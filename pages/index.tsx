@@ -10,7 +10,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>This will be the alpha2 landing page</h1>
+      <h1 className=' font-bold'>This will be the alpha2 landing page</h1>
     </div>
   )
 }
