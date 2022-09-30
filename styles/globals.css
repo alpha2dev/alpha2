@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.panel{
+    @apply bg-[#100530]/50 border border-white/10 p-5 rounded-lg backdrop-blur-xl shadow-md
+}
