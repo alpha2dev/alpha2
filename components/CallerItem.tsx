@@ -1,12 +1,17 @@
 import { UserCircleIcon } from '@heroicons/react/24/solid'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import {query, getDocs, collection, onSnapshot} from 'firebase/firestore'
+import { db } from '../firebase'
+import { Caller } from '../typings'
 
 
 interface Props{
   name: String,
+  OnClick?: () => void,
 }
 
 function CallerItem({name}: Props) {
+
   return (
     <div className='panel'>
       <div className='flex items-center'>
