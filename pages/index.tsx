@@ -18,31 +18,22 @@ const Home: NextPage = () => {
   const [callers, setCallers] = useState<any[]>([])
 
   useEffect(() => {
-    return onSnapshot(query(collection(db, 'callers')), snapshot => {
+    return onSnapshot(collection(db, 'callers'), snapshot => {
       setCallers(snapshot.docs)
     });
   }, [db])
 
-  console.log(callers)
   
-
-  const address = useAddress();
-
-  if(!address) return <Login/>
-
-  
-
   return (
-    <div className="flex min-h-screen flex-col py-2 bg-slate-900 text-white space-y-10">
+    <div className="flex flex-col py-2 bg-slate-900 text-white space-y-10 bg">
       <Head>
         <title>Alpha2 | Revolutionizing Alpha</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className=''>
-        <Header />
         <div className='hidden md:flex flex-row m-10 h-fit space-x-5 justify-center'>
-          {callers.map((caller)=>(
-            <FeaturedCallerItem key={caller.id} name={caller.data().name} />
+          {callers && callers.map((caller)=>(
+            <FeaturedCallerItem key={caller.id} name={caller.data().name} wallet={caller.id} />
           ))}
         </div>
         <div className="space-y-5 md:space-y-0 m-5 md:flex md:flex-row items-start justify-center md:space-x-5">

@@ -5,14 +5,15 @@ import { useRouter } from 'next/router'
 
 interface Props{
   name: String,
+  wallet: String,
   OnClick?: () => void,
 }
 
-function FeaturedCallerItem({name, OnClick}: Props) {
+function FeaturedCallerItem({name, wallet, OnClick}: Props) {
   const router = useRouter();
 
   const handleClick = () => {
-
+      router.push('/caller/' + wallet)
   }
 
   return (
