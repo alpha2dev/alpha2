@@ -76,7 +76,7 @@ function Caller({address, name, subs}: Props) {
         </div>
       {/*<div className='mt-20 mb-20 ml-4 mr-4 border-l border-slate-500 h-full' />*/}
       </div>
-      <div className='lg:hidden flex flex-row justify-center space-x-4 divide-x-2 text-slate-300 divide-gray-800 items-start text-left font-bold '>
+      <div className='lg:hidden text-xs md:text-sm flex flex-row justify-center space-x-4 divide-x-2 text-slate-300 divide-gray-800 items-start text-left font-bold '>
         <div className='p-3'>
           <p>A+</p>
           <p>Rating</p>
@@ -101,22 +101,39 @@ function Caller({address, name, subs}: Props) {
             <div className=' table-header-group text-xs text-slate-400 uppercase'>
               <div className='table-row  '>
                 <p className='tabl
-                e-cell p-2 w-2/4'>collection</p>
-                <p className='table-cell '>buy price</p>
-                <p className='table-cell '>current price</p>
+                e-cell p-2 w-2/3'>collection</p>
+                <p className='hidden md:table-cell text-right '>bought</p>
+                <p className='table-cell text-right pr-2'>current</p>
               </div>
             </div>
             <div className='table-row-group p-2 rounded-lg cursor-pointer'>
               <div className='table-row hover:bg-violet-900 transition-all'>
-                <p className=' table-cell truncate overflow-hidden pl-2 pt-4 pb-4 rounded-l-lg'>collection name </p>
-                <p className=' table-cell'>0.01</p>
-                <p className=' table-cell rounded-r-lg'>0.03</p>
+                <p className=' table-cell truncate overflow-hidden pl-2 pt-4 pb-4 rounded-l-lg w-2/3'>collection name </p>
+                <p className='hidden md:table-cell text-right'>0.01</p>
+                <p className=' table-cell rounded-r-lg text-right pr-2'>0.03</p>
               </div>
             </div>
           </div>
         </div>
-        <div className='hidden panel flex flex-1'>
+        <div className='panel flex flex-1 flex-col'>
           <p className='text-3xl font-bold mb-4'>Call History</p>
+          <div className='table p-2 space-y-2 text-left text-lg font-bold'>
+            <div className=' table-header-group text-xs text-slate-400 uppercase'>
+              <div className='table-row  '>
+                <p className='tabl
+                e-cell p-2 w-2/3'>collection</p>
+                <p className='hidden md:table-cell text-right '>bought</p>
+                <p className='table-cell text-right pr-2'>sold</p>
+              </div>
+            </div>
+            <div className='table-row-group p-2 rounded-lg cursor-pointer'>
+              <div className='table-row hover:bg-violet-900 transition-all'>
+                <p className=' table-cell truncate overflow-hidden pl-2 pt-4 pb-4 rounded-l-lg w-2/3'>collection name </p>
+                <p className='hidden md:table-cell text-right'>0.01</p>
+                <p className=' table-cell rounded-r-lg text-right pr-2'>0.03</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
