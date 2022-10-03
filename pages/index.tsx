@@ -8,9 +8,9 @@ import Login from '../components/Login'
 import CallerItem from '../components/CallerItem'
 import FeaturedCallerItem from '../components/FeaturedCallerItem'
 import { db } from '../firebase'
-import {query, collection, getDocs, onSnapshot} from 'firebase/firestore'
+import {query, collection, getDocs, onSnapshot, addDoc} from 'firebase/firestore'
 import { Caller } from '../typings'
-import { useEffect, useState } from 'react'
+import { cloneElement, useEffect, useState } from 'react'
 
 
 
@@ -22,7 +22,6 @@ const Home: NextPage = () => {
       setCallers(snapshot.docs)
     });
   }, [db])
-
   
   return (
     <div className="flex flex-col py-2 bg-slate-900 text-white space-y-10 bg">
@@ -31,7 +30,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className=''>
-        <div className='hidden md:flex flex-row m-10 h-fit space-x-5 justify-center'>
+        <div className=' flex flex-row m-10 h-fit space-x-5 justify-center flex-grow-0 flex-shrink-0 overflow-clip '>
           {callers && callers.map((caller)=>(
             <FeaturedCallerItem key={caller.id} name={caller.data().name} wallet={caller.id} />
           ))}

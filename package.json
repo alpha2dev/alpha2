@@ -6,14 +6,18 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@heroicons/react": "^2.0.11",
+    "@mui/material": "^5.10.7",
     "@thirdweb-dev/react": "^3.1.1",
     "@thirdweb-dev/sdk": "^3.1.1",
     "ethers": "^5.7.1",
     "firebase": "^9.10.0",
     "next": "latest",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-tooltip": "^4.2.21"
   },
   "devDependencies": {
     "@types/node": "17.0.35",
