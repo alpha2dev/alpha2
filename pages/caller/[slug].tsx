@@ -19,7 +19,6 @@ function Caller({address, name, subs}: Props) {
   return (
     <main className="flex flex-col ml-2 mr-2 xl:ml-40 xl:mr-40 md:ml-20 md:mr-20 mt-24 py-2 bg-slate-900 text-white space-y-4">
       <div className='flex flex-row panel transition-all '>
-        <UserCircleIcon className='absolute w-28 md:w-40 bottom-48'/>
         <div className='absolute hidden flex flex-row justify-center text-center font-bold text-sm whitespace-nowrap space-x-4 uppercase bottom-32 left-32 md:left-48'>
           <div className='self-center bg-yellow-600 rounded p-3 border-2 border-yellow-800 shadow-md ml-2'>
             <p>Rating</p>
@@ -40,6 +39,7 @@ function Caller({address, name, subs}: Props) {
         </div>
         <div className='flex-1 flex-row mt-8 ml-4 md:ml-8 mb-8 space-y-4'>
           <div className='space-y-2 mb-20'>
+            <UserCircleIcon className='sm:absolute w-28 md:w-40 bottom-48 flex-none'/>
             <p className='text-xl md:text-3xl font-bold'>{name}</p>
             <Tooltip title="Copy" >
               <div onClick={() => navigator.clipboard.writeText(address)} className='text-sm  text-slate-300 bg-slate-800 rounded p-0.5 border-1 border-slate-900 cursor-pointer hover:bg-slate-700 flex w-28'>
