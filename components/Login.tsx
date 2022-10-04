@@ -1,10 +1,11 @@
 import { WalletIcon } from '@heroicons/react/24/solid'
 import React from 'react'
 import Image from 'next/image'
-import { useMetamask } from '@thirdweb-dev/react';
+import { useAddress, useMetamask } from '@thirdweb-dev/react';
 
 function Login() {
     const connectMeta = useMetamask();
+    const register = ["0xE6f94224d01667F13AA97686b9bba484BDb87b91"]
   return (
     <div className='flex min-h-screen flex-col py-2 bg-gradient-to-br to-[#100530] from-[#370068] text-white space-y-10 justify-center'>
         <div className='text-center'>

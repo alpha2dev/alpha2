@@ -6,7 +6,11 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+     backgroundImage:{
+      'banner-default': "url('/images/alphabanner.png')"
+     }
+    },
   },
   plugins: [
     plugin(function ({ addUtilities }) {

@@ -18,25 +18,8 @@ interface Props{
 function Caller({address, name, subs}: Props) {
   return (
     <main className="flex flex-col ml-2 mr-2 xl:ml-40 xl:mr-40 md:ml-20 md:mr-20 mt-24 py-2 bg-slate-900 text-white space-y-4">
-      <div className='flex flex-row panel transition-all '>
-        <div className='absolute hidden flex flex-row justify-center text-center font-bold text-sm whitespace-nowrap space-x-4 uppercase bottom-32 left-32 md:left-48'>
-          <div className='self-center bg-yellow-600 rounded p-3 border-2 border-yellow-800 shadow-md ml-2'>
-            <p>Rating</p>
-            <p>A+</p>
-          </div>
-          <div className=' self-center bg-green-600 rounded border-2 border-green-800 p-3 shadow-md'>
-            <p className=''>Success</p>
-            <p className='text-md'>90%</p>
-          </div>
-          <div className='hidden self-center bg-purple-600 rounded p-4'>
-            <p>Followers</p>
-            <p>12343212</p>
-          </div>
-          <div className='self-center bg-blue-600 rounded p-3 border-2 border-blue-800 shadow-md'>
-            <p>Subscribers</p>
-            <p>223</p>
-          </div>
-        </div>
+      {/*<img className=' w-1/1 h-56 sm:h-96 object-cover rounded-lg' src="../images/alphabanner.png" alt="" />*/}
+      <div className="flex flex-row panel transition-all relative">
         <div className='flex-1 flex-row mt-8 ml-4 md:ml-8 mb-8 space-y-4'>
           <div className='space-y-2 mb-20'>
             <UserCircleIcon className='sm:absolute w-28 md:w-40 bottom-48 flex-none'/>
@@ -67,7 +50,7 @@ function Caller({address, name, subs}: Props) {
             <p>subscribers</p>
           </div>
         </div>
-        <div className='flex-1 flex flex-row justify-end items-start whitespace-nowrap font-bold'>
+        <div className='flex-1 flex flex-row justify-end items-center whitespace-nowrap font-bold'>
           <div className='flex flex-row items-center'>
             <Image className='' src="/images/eth.png" width={25} height={25}/>
             <p className='pr-4'>0.02</p>
