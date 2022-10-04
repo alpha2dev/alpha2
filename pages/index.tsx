@@ -16,7 +16,7 @@ interface Props{
   callers: any,
 }
 
-const Home: NextPage = ({callers}: Props) => {
+function Home({callers}: Props){
   //const [callers, setCallers] = useState<any[]>([])
 
   // useEffect(() => {

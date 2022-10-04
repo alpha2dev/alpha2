@@ -29,12 +29,15 @@ function Header() {
     register.forEach(element => {
       if(address == element){
         verified = true
-        console.log(verified)
-      }  else verified = false
+      } 
     }); 
 
+    if(!address) return <Login />
 
-    if(!address || !verified ) return <Login/>
+    if(address && !verified ){
+      disconnect
+      return <Login/>
+    }
 
 
   return (
