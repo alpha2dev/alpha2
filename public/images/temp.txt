@@ -1,0 +1,60 @@
+<main className="flex flex-col ml-2 mr-2 xl:ml-40 xl:mr-40 md:ml-20 md:mr-20 mt-24 py-2 bg-slate-900 text-white space-y-4">
+      {/*<img className=' w-1/1 h-56 sm:h-96 object-cover rounded-lg' src="../images/alphabanner.png" alt="" />*/}
+      <div className="flex flex-row panel transition-all relative">
+        <div className='flex-1 flex-row mt-8 ml-4 md:ml-8 mb-8 space-y-4'>
+          <div className='space-y-2 mb-20'>
+            <UserCircleIcon className='sm:absolute w-28 md:w-40 bottom-48 flex-none'/>
+            <p className='text-xl md:text-3xl font-bold'>{name}</p>
+            <Tooltip title="Copy" >
+              <div onClick={() => navigator.clipboard.writeText(address)} className='text-sm  text-slate-300 bg-slate-800 rounded p-0.5 border-1 border-slate-900 cursor-pointer hover:bg-slate-700 flex w-28'>
+                <Image className='' src="/images/eth.png" width={20} height={20}/>
+                <p className=' select-none'>{address?.substring(0,5)}...{address?.substring(address.length, address.length-5)}</p>             
+              </div>
+            </Tooltip>
+          </div>
+        </div>
+        <div className='hidden lg:flex flex-1 md:flex-row justify-center space-x-4 divide-x-2 text-slate-300 divide-gray-800 items-end text-left font-bold'>
+          <div className='p-3'>
+            <p>A+</p>
+            <p>rating</p>
+          </div>
+          <div className='p-3'>
+            <p className='text-md'>90%</p>
+            <p className=''>success</p>
+          </div>
+          <div className=' p-3'>
+              <p>12343212</p>
+              <p>followers</p>
+            </div>
+          <div className='p-3'>
+            <p>223</p>
+            <p>subscribers</p>
+          </div>
+        </div>
+        <div className='flex-1 flex flex-row justify-end items-center whitespace-nowrap font-bold'>
+          <div className='flex flex-row items-center'>
+            <Image className='' src="/images/eth.png" width={25} height={25}/>
+            <p className='pr-4'>0.02</p>
+            <button className='rounded bg-blue-600 p-3 uppercase'>Subcriptions</button>
+          </div>
+        </div>
+      {/*<div className='mt-20 mb-20 ml-4 mr-4 border-l border-slate-500 h-full' />*/}
+      </div>
+      <div className='lg:hidden text-xs md:text-sm flex flex-row justify-center space-x-4 divide-x-2 text-slate-300 divide-gray-800 items-start text-left font-bold '>
+        <div className='p-3'>
+          <p>A+</p>
+          <p>Rating</p>
+        </div>
+        <div className='p-3'>
+          <p className='text-md'>90%</p>
+          <p className=''>Success</p>
+        </div>
+        <div className='p-3'>
+            <p>12343212</p>
+            <p>Followers</p>
+          </div>
+        <div className='p-3'>
+          <p>223</p>
+          <p>Subscribers</p>
+        </div>
+      </div>

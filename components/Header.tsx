@@ -43,7 +43,7 @@ function Header() {
   return (
     <header className='grid grid-cols-2 md:grid-cols-5 justify-between items-center pt-4 bg-slate-900 bg-inherit'>
         <div className=' flex items-center'>
-            <Image className='rounded-full' src="/images/alphawordlogo.png" width={216} height={60}/>
+            <Image onClick={() => router.push("/")} className='cursor-pointer' src="/images/alphawordlogo.png" width={216} height={60}/>
         </div>
         <div className='hidden md:flex md:col-span-3 items-center justify-center whitespace-nowrap'>
             <div className='panel space-x-10 rounded'>
