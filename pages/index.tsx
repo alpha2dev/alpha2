@@ -2,21 +2,22 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import {WalletIcon} from '@heroicons/react/24/solid'
-import { useAddress } from '@thirdweb-dev/react'
+import { useAddress, useDisconnect } from '@thirdweb-dev/react'
 import Header from '../components/Header'
 import Login from '../components/Login'
 import CallerItem from '../components/CallerItem'
 import FeaturedCallerItem from '../components/FeaturedCallerItem'
 import { db } from '../firebase'
-import {query, collection, getDocs, onSnapshot, addDoc, doc, getDoc} from 'firebase/firestore'
+import {query, collection, getDocs, onSnapshot, addDoc, doc, getDoc, Timestamp, setDoc} from 'firebase/firestore'
 import { Caller } from '../typings'
 import { cloneElement, useEffect, useState } from 'react'
 
 interface Props{
   callers: any,
+  users: any
 }
 
-function Home({callers}: Props){
+function Home({callers, users}: Props){
   //const [callers, setCallers] = useState<any[]>([])
 
   // useEffect(() => {
@@ -24,6 +25,59 @@ function Home({callers}: Props){
   //     setCallers(snapshot.docs)
   //   });
   // }, [db])
+  const disconnect = useDisconnect();
+
+  const address = useAddress();
+
+  const [isCaller, setIsCaller] = useState(false)
+
+  let verified = false;
+
+  const register = [
+    "0xE6f94224d01667F13AA97686b9bba484BDb87b91",
+    "0x0aEd621DCF1F1C0D09609D0940F1e3DA17A020a2",
+    "0x731998723CD5d1769A5021506D53D79B1BD2D1f8"
+  ]
+
+  if(isCaller == false && address == register[0]) setIsCaller(true);
+
+  register.forEach(element => {
+    if(address == element){
+      verified = true
+    } 
+  }); 
+
+  if(!address) return <Login />
+
+  if(address && !verified ){
+    disconnect
+    return <Login/>
+  }
+
+  let userJoined = false;
+  if(address){
+     users.forEach((user: any) => {
+    if(user.id == address){
+      userJoined = true;
+    }
+  });
+  }
+ 
+
+  const data = {
+    name: "New User",
+    avatar: "./images/sponge.png",
+    banner: "./images/alphabanner.png",
+    follows: [],
+    subscriptions: [],
+    caller: false,
+    admin: false,
+  }
+
+  if(!userJoined && address){
+    setDoc(doc(db, "users", `${address}`), data)
+  }
+  
   
   return (
     <div className="flex flex-col py-2 bg-slate-900 text-white space-y-10 bg">
@@ -59,33 +113,32 @@ function Home({callers}: Props){
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
 
-  const callerSlug = context.params?.slug;
 
-  const docRef = collection(db, "callers");
-
-  const s = await getDocs(docRef);
+  const colCallers =  await getDocs(collection(db, "callers"));
+  const colUsers = await getDocs(collection(db, "users"));
 
   let callers: { id: string }[] = []
 
-  s.forEach((doc) =>{
+  colCallers.forEach((doc) =>{
     callers.push({
       ...doc.data(), id:doc.id
     })
   })
-  
 
+  let users: { id: string }[] = []
 
-  if(!callers){
-    return {
-      notFound: true
-    }
-  }
+  colUsers.forEach((doc) =>{
+    users.push({
+      ...doc.data(), id:doc.id
+    })
+  })
 
   return {
     props:{
-      callers
+      callers,
+      users
     }
   }
 }
