@@ -47,11 +47,8 @@ function Home({callers, users}: Props){
     } 
   }); 
 
-  if(!address) return <Login />
 
   if(address && !verified ){
-    disconnect
-    return <Login/>
   }
 
   let userJoined = false;
@@ -66,12 +63,12 @@ function Home({callers, users}: Props){
 
   const data = {
     name: "New User",
-    avatar: "./images/sponge.png",
-    banner: "./images/alphabanner.png",
+    avatar: "/images/sponge.png",
+    banner: "/images/alphabanner.png",
     follows: [],
     subscriptions: [],
-    caller: false,
-    admin: false,
+    isCaller: false,
+    isAdmin: false,
   }
 
   if(!userJoined && address){

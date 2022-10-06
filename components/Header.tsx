@@ -73,9 +73,10 @@ function Header() {
           <NavButton onClick={disconnect} title="Logout" />
         </div>
       </div>
-      <div className='flex flex-col ml-auto text-right pr-4'>
+      <div className='flex flex-row ml-auto text-right pr-4'>
         {isCaller && <p className='text-xs text-red-400 truncate hidden'>Alpha Caller</p>}
         <p className='text-xs text-gray-400 truncate hidden'>{address?.substring(0,5)}...{address?.substring(address.length, address.length-5)}</p>
+        {user && (user.data().isAdmin && <button className='panel text-white mr-4'>ADMIN</button>)}
         <Menu>
           <Menu.Button className={"hidden md:inline"}>
             {user && <img className='rounded-full mr-4 border-2 border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer' draggable="false" src={user.data().avatar} alt="" />}
