@@ -47,8 +47,11 @@ function Home({callers, users}: Props){
     } 
   }); 
 
+  if(!address) return <Login />
 
   if(address && !verified ){
+    disconnect
+    return <Login/>
   }
 
   let userJoined = false;
