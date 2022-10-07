@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import {WalletIcon} from '@heroicons/react/24/solid'
-import { useAddress, useDisconnect } from '@thirdweb-dev/react'
+import { useAddress, useDisconnect, useLogin } from '@thirdweb-dev/react'
 import Header from '../components/Header'
 import Login from '../components/Login'
 import CallerItem from '../components/CallerItem'
@@ -11,6 +11,8 @@ import { db } from '../firebase'
 import {query, collection, getDocs, onSnapshot, addDoc, doc, getDoc, Timestamp, setDoc} from 'firebase/firestore'
 import { Caller } from '../typings'
 import { cloneElement, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { getUser } from './api/auth/[...thirdweb]'
 
 interface Props{
   callers: any,
@@ -26,8 +28,9 @@ function Home({callers, users}: Props){
   //   });
   // }, [db])
   const disconnect = useDisconnect();
-
+  const router = useRouter()
   const address = useAddress();
+ 
 
   const [isCaller, setIsCaller] = useState(false)
 
@@ -47,12 +50,14 @@ function Home({callers, users}: Props){
     } 
   }); 
 
-  if(!address) return <Login />
+  // if(!address) return <Login/>
 
-  if(address && !verified ){
-    disconnect
-    return <Login/>
-  }
+  // if(address && !verified ){
+  //   disconnect
+  //   return <Login/>
+  // }
+
+
 
   let userJoined = false;
   if(address){
@@ -113,8 +118,18 @@ function Home({callers, users}: Props){
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 
+  const user = await getUser(context.req)
+
+  if(!user){
+    return{
+      redirect: {
+        destination: "/login",
+        permanent: false
+      }
+    }
+  }
 
   const colCallers =  await getDocs(collection(db, "callers"));
   const colUsers = await getDocs(collection(db, "users"));

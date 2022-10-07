@@ -1,6 +1,6 @@
 
 import { Bars3BottomRightIcon } from '@heroicons/react/24/solid';
-import { useAddress, useDisconnect } from '@thirdweb-dev/react';
+import { useAddress, useDisconnect, useLogout } from '@thirdweb-dev/react';
 import React, { forwardRef, useEffect, useState } from 'react'
 import NavButton from './NavButton';
 import Image from 'next/image'
@@ -19,6 +19,7 @@ function Header() {
   const router = useRouter();
   const address = useAddress();
   const disconnect = useDisconnect();
+  const logout = useLogout();
   const [isCaller, setIsCaller] = useState(false)
   const [users, setUsers] = useState<any[]>([])
   const [user, setUser] = useState<any>()
@@ -35,6 +36,11 @@ function Header() {
     } 
   }); 
 
+  const handleClick = () => {
+    router.replace("/login")
+    disconnect()
+  }
+
   console.log(user)
 
   const register = [
@@ -45,20 +51,20 @@ function Header() {
 
   if(isCaller == false && address == register[0]) setIsCaller(true);
 
-  let verified = false;
+  // let verified = false;
 
-  register.forEach(element => {
-    if(address == element){
-      verified = true
-    } 
-  }); 
-
-
-
-  if(address && !verified ) return (<div></div>)
+  // register.forEach(element => {
+  //   if(address == element){
+  //     verified = true
+  //   } 
+  // }); 
 
 
-  if(!address) return (<div></div>)
+
+  // if(address && !verified ) 
+
+
+  // if(!address) 
 
   return (
     <header className='grid grid-cols-2 md:grid-cols-5 justify-between items-center pt-4 bg-slate-900 bg-inherit'>
@@ -70,13 +76,13 @@ function Header() {
           <NavButton {...{isActive : router.route == "/" ? true : false}} onClick={() => router.push("/")} title="Home" />
           <NavButton title="Feed"/>
           <NavButton title="Callers" />
-          <NavButton onClick={disconnect} title="Logout" />
+          <NavButton onClick={() => handleClick()} title="Logout" />
         </div>
       </div>
       <div className='flex flex-row ml-auto text-right items-center pr-4'>
         {isCaller && <p className='text-xs text-red-400 truncate hidden'>Alpha Caller</p>}
         <p className='text-xs text-gray-400 truncate hidden'>{address?.substring(0,5)}...{address?.substring(address.length, address.length-5)}</p>
-        {user && (user.data().isAdmin && <button className='panel text-white mr-4 font-bold'>Admin</button>)}
+        {user && (user.data().isAdmin && <button className='panel text-white mr-4 font-bold'>{address}</button>)}
         <Menu>
           <Menu.Button className={"hidden md:inline"}>
             {user && <img className='rounded-full mr-4 border-2 border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer' draggable="false" src={user.data().avatar} alt="" />}

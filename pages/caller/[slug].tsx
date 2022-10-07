@@ -23,7 +23,6 @@ function Caller({address, name, subs}: Props) {
   const router = useRouter();
   const connected = useAddress();
   
-  if(!connected) return <Login />
   return (
     <main className="flex flex-col ml-2 mr-2 xl:ml-40 xl:mr-40 md:ml-20 md:mr-20 lg:mt-14 py-2 bg-slate-900 text-white space-y-4">
       {/*<img className=' w-1/1 h-56 sm:h-96 object-cover rounded-lg' src="../images/alphabanner.png" alt="" />*/}
