@@ -12,7 +12,6 @@ import {query, collection, getDocs, onSnapshot, addDoc, doc, getDoc, Timestamp, 
 import { Caller } from '../typings'
 import { cloneElement, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { getUser } from './api/auth/[...thirdweb]'
 
 interface Props{
   callers: any,
@@ -34,21 +33,21 @@ function Home({callers, users}: Props){
 
   const [isCaller, setIsCaller] = useState(false)
 
-  let verified = false;
+  // let verified = false;
 
-  const register = [
-    "0xE6f94224d01667F13AA97686b9bba484BDb87b91",
-    "0x0aEd621DCF1F1C0D09609D0940F1e3DA17A020a2",
-    "0x731998723CD5d1769A5021506D53D79B1BD2D1f8"
-  ]
+  // const register = [
+  //   "0xE6f94224d01667F13AA97686b9bba484BDb87b91",
+  //   "0x0aEd621DCF1F1C0D09609D0940F1e3DA17A020a2",
+  //   "0x731998723CD5d1769A5021506D53D79B1BD2D1f8"
+  // ]
 
-  if(isCaller == false && address == register[0]) setIsCaller(true);
+  // if(isCaller == false && address == register[0]) setIsCaller(true);
 
-  register.forEach(element => {
-    if(address == element){
-      verified = true
-    } 
-  }); 
+  // register.forEach(element => {
+  //   if(address == element){
+  //     verified = true
+  //   } 
+  // }); 
 
 
   // if(address && !verified ){

@@ -12,8 +12,6 @@ import { set, reset } from '../slices/auth'
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '../store'
 import AuthCheck from '../components/AuthCheck'
-import { getUser } from './api/auth/[...thirdweb]'
-
 
 
 function MyApp({ Component, pageProps }: AppProps) {
