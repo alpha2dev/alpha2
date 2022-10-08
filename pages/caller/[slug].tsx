@@ -138,6 +138,7 @@ function Caller({address, name, subs}: Props) {
 export default Caller;
 
 export const getStaticPaths = async () => {
+  
   const callers = await getDocs(collection(db, "callers"));
 
 
@@ -160,6 +161,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const docRef = doc(db, "callers", `${callerSlug}`);
 
   const caller = await getDoc(docRef);
+
+  
 
   const address = caller.id
   const name = caller.data()?.name

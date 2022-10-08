@@ -18,7 +18,7 @@ import { getUser } from './api/auth/[...thirdweb]'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return(
-    <ThirdwebProvider desiredChainId={ChainId.Mumbai} authConfig={{domain: "app.alpha2.io", authUrl: "api/auth", loginRedirect: "/"}}>
+    <ThirdwebProvider desiredChainId={ChainId.Mumbai}>
       <Provider store={store}>
           <div className='bg-slate-900 min-h-screen'>
             <AuthCheck>

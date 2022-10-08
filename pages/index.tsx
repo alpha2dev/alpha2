@@ -50,7 +50,6 @@ function Home({callers, users}: Props){
     } 
   }); 
 
-  // if(!address) return <Login/>
 
   // if(address && !verified ){
   //   disconnect
@@ -120,16 +119,14 @@ export default Home
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-  const user = await getUser(context.req)
-
-  if(!user){
-    return{
-      redirect: {
-        destination: "/login",
-        permanent: false
-      }
-    }
-  }
+  // if(!address){
+  //   return{
+  //     redirect: {
+  //       destination: "/login",
+  //       permanent: false
+  //     }
+  //   }
+  // }
 
   const colCallers =  await getDocs(collection(db, "callers"));
   const colUsers = await getDocs(collection(db, "users"));

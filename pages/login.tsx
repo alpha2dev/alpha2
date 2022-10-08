@@ -17,6 +17,7 @@ function login({user}: Props) {
     const connectMeta = useMetamask();
     const router = useRouter();
     const logout = useLogout();
+
     const handleClick = () => {
       connectMeta
       router.push("/")
@@ -42,10 +43,10 @@ function login({user}: Props) {
         <div className='flex flex-wrap justify-center items-center text-center'>
             <div className='panel w-96 m-2'>
                 <WalletIcon className='w-24 h-24 mx-auto m-8'/>
-                {(address && !user && verified) && <button onClick={() => login()} className='bg-white text-black font-bold rounded-full p-4 m-2 pl-6 pr-6 hover:bg-slate-300 transition-all'>SIGN IN</button>}
+                {/*(address && !user && verified) && <button onClick={() => login()} className='bg-white text-black font-bold rounded-full p-4 m-2 pl-6 pr-6 hover:bg-slate-300 transition-all'>SIGN IN</button>}
                 {(address && !user && !verified) && <p className='text-red-500'>You do not have access</p>}
-                {(!address && user) && <button onClick={() => handleClick() } className='bg-white text-black font-bold rounded-full p-4 m-2 pl-6 pr-6 hover:bg-slate-300 transition-all'>CONNECT</button>}
-                {(!address && !user) && <button onClick={() => connectMeta()} className='bg-white text-black font-bold rounded-full p-4 m-2 pl-6 pr-6 hover:bg-slate-300 transition-all'>CONNECT</button>}
+                {(!address && user) && <button onClick={() => handleClick() } className='bg-white text-black font-bold rounded-full p-4 m-2 pl-6 pr-6 hover:bg-slate-300 transition-all'>CONNECT</button>*/}
+                {<button onClick={() => handleClick()} className='bg-white text-black font-bold rounded-full p-4 m-2 pl-6 pr-6 hover:bg-slate-300 transition-all'>CONNECT</button>}
                 <h1 className='text-xl font-semibold'>Connect with MetaMask</h1>
             </div>
         </div>

@@ -37,7 +37,7 @@ function Header() {
   }); 
 
   const handleClick = () => {
-    router.replace("/login")
+    //router.replace("/login")
     disconnect()
   }
 
@@ -51,20 +51,20 @@ function Header() {
 
   if(isCaller == false && address == register[0]) setIsCaller(true);
 
-  // let verified = false;
+  let verified = false;
 
-  // register.forEach(element => {
-  //   if(address == element){
-  //     verified = true
-  //   } 
-  // }); 
-
-
-
-  // if(address && !verified ) 
+  register.forEach(element => {
+    if(address == element){
+      verified = true
+    } 
+  }); 
 
 
-  // if(!address) 
+
+  // if(address && !verified ) router.push("/login")
+
+
+  // if(router.pathname != "/login" && !address) router.push("/login")
 
   return (
     <header className='grid grid-cols-2 md:grid-cols-5 justify-between items-center pt-4 bg-slate-900 bg-inherit'>
