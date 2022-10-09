@@ -88,7 +88,7 @@ function Caller({address, name, subs}: Props) {
         </div>
       </div>
       <div className='lg:flex lg:flex-row space-y-4 lg:space-x-4 lg:space-y-0'>
-        <div className='panel flex flex-1 flex-col'>
+        <div className='bg-[#08111f] p-4 rounded-lg flex flex-1 flex-col'>
           <p className='text-3xl font-bold mb-4'>Pending Calls</p>
           <div className='table p-2 space-y-2 text-left text-lg font-bold'>
             <div className=' table-header-group text-xs text-slate-400 uppercase'>
@@ -108,7 +108,7 @@ function Caller({address, name, subs}: Props) {
             </div>
           </div>
         </div>
-        <div className='panel flex flex-1 flex-col'>
+        <div className='bg-[#08111f] p-4 rounded-lg flex flex-1 flex-col'>
           <p className='text-3xl font-bold mb-4'>Call History</p>
           <div className='table p-2 space-y-2 text-left text-lg font-bold'>
             <div className=' table-header-group text-xs text-slate-400 uppercase'>
