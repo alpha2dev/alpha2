@@ -11,7 +11,7 @@ import { GetServerSideProps } from 'next';
 import { collection, doc, getDoc, getDocFromServer, getDocs, onSnapshot, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Menu, Transition } from '@headlessui/react';
-import CallModal from './CallModal';
+import CallModal from './CreateCallModal';
 
 
 
@@ -85,10 +85,10 @@ function Header() {
         {isCaller && <p className='text-xs text-red-400 truncate hidden'>Alpha Caller</p>}
         <p className='text-xs text-gray-400 truncate hidden'>{address?.substring(0,5)}...{address?.substring(address.length, address.length-5)}</p>
         {user && (user.data().isAdmin && <CallModal/> )}
-        {user && (user.data().isAdmin && <button onClick={() => setIsCallOpen(true)} className='panel text-white mr-4 font-bold'>Admin</button>)}
+        {/*user && (user.data().isAdmin && <button onClick={() => setIsCallOpen(true)} className='panel text-white mr-4 font-bold'>Admin</button>)*/}
         <Menu>
           <Menu.Button className={"hidden md:inline"}>
-            {user && <img className='rounded-full mr-4 border-2 border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer' draggable="false" src={user.data().avatar} alt="" />}
+            {user && <img className='rounded-full mr-4 border-2 border-slate-800 hover:border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer transition-all' draggable="false" src={user.data().avatar} alt="" />}
           </Menu.Button>
           <Transition
             enter="transition ease-out duration-100"

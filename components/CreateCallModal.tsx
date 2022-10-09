@@ -1,13 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react'
+import { PlusCircleIcon } from '@heroicons/react/24/outline'
 import React, { Fragment, useState } from 'react'
 
-interface Props{
-    name: string,
-    bought: string,
-    current_sold: string,
-}
 
-function CallModal({name, bought, current_sold}: Props) {
+function CallModal() {
     const [isOpen, setIsOpen] = useState(false)
 
     function closeModal(){
@@ -20,11 +16,11 @@ function CallModal({name, bought, current_sold}: Props) {
 
   return (
     <>
-    <div onClick={openModal} className='table-row hover:bg-violet-900 transition-all'>
-        <p className=' table-cell truncate overflow-hidden pl-2 pt-4 pb-4 rounded-l-lg w-2/3'>{name}</p>
-        <p className='hidden md:table-cell text-right'>{bought}</p>
-        <p className=' table-cell rounded-r-lg text-right pr-2'>{current_sold}</p>
+    <div onClick={openModal} className='flex p-1 hover:text-blue-400 text-white font-bold items-center uppercase text-sm mr-2 cursor-pointer'>
+      <PlusCircleIcon className="w-8" />
+      <p className='hidden lg:inline'>Call</p>
     </div>
+    
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -51,9 +47,9 @@ function CallModal({name, bought, current_sold}: Props) {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="panel w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title as="h3" className="text-2xl font-medium leading-6 text-white">{name}</Dialog.Title>
+                  <Dialog.Title as="h3" className="text-xl font-medium leading-6 text-white">Create Call</Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-white">This is the description given by the caller about the collection</p>
+                    <p className="text-sm text-white">Just testing the create call modal</p>
                   </div>
                   <div className="mt-4">
                     <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" onClick={closeModal}>Got it, thanks!</button>
