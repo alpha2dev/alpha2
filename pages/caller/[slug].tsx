@@ -105,9 +105,9 @@ function Caller({address, name, subs, calls}: Props) {
         </div>
       </div>
       <div className='xl:flex flex-row space-y-4 xl:space-x-4 xl:space-y-0'>
-        <div className='bg-[#08111f] p-4 rounded-lg flex flex-1 flex-col'>
+        <div className='bg-[#08111f] p-3 rounded-lg flex flex-1 flex-col'>
           <p className='text-3xl font-bold mb-4'>Pending Calls</p>
-          <div className='table p-2 space-y-2 text-left text-lg font-bold border-separate'>
+          <div className='table space-y-2 text-left text-lg font-bold border-separate'>
             <div className=' table-header-group text-xs text-slate-400 uppercase'>
               <div className='table-row  '>
                 <p className='table-cell p-2 w-2/3'>collection</p>

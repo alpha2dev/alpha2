@@ -50,8 +50,8 @@ function CallModal({url, callerAddress, desc, bought, current_sold}: Props) {
 
   return (
     <>
-    <div onClick={openModal} className='table-row hover:bg-slate-800 transition-all'>
-        <p className=' table-cell truncate overflow-hidden pl-2 pt-2 pb-2 rounded-l-lg w-2/3'><MinusCircleIcon className='w-5 inline text-amber-400 mr-2'/><img className='w-14 h-14 object-cover rounded bg-slate-700 inline mr-2' src={img} alt="" />{name}</p>
+    <div onClick={openModal} className='table-row hover:bg-slate-800 transition-all text-xs sm:text-lg'>
+        <p className=' table-cell truncate overflow-hidden pl-2 pt-2 pb-2 rounded-l-lg w-2/3'><MinusCircleIcon className='w-5 inline text-amber-400 mr-2'/><img className='w-10 h-10 sm:w-14 sm:h-14 object-cover rounded bg-slate-700 inline mr-2' src={img} alt="" />{name}</p>
         <p className='hidden md:table-cell text-right'>{bought}</p>
         <p className=' table-cell rounded-r-lg text-right pr-2'>{floor}</p>
     </div>

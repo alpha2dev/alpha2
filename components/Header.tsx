@@ -77,7 +77,6 @@ function Header() {
           <NavButton {...{isActive : router.route == "/" ? true : false}} onClick={() => router.push("/")} title="Home" />
           <NavButton title="Feed"/>
           <NavButton title="Callers" />
-          <NavButton onClick={() => handleClick()} title="Logout" />
         </div>
       </div>
       <div className='flex flex-row ml-auto text-right items-center pr-4'>
