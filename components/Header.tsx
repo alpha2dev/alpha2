@@ -1,7 +1,7 @@
 
-import { Bars3BottomRightIcon } from '@heroicons/react/24/solid';
+import { Bars3BottomRightIcon, Bars3Icon } from '@heroicons/react/24/solid';
 import { useAddress, useDisconnect, useLogout } from '@thirdweb-dev/react';
-import React, { forwardRef, useEffect, useState } from 'react'
+import React, { forwardRef, Fragment, useEffect, useState } from 'react'
 import NavButton from './NavButton';
 import Image from 'next/image'
 import Login from './Login';
@@ -43,7 +43,6 @@ function Header() {
     disconnect()
   }
 
-  console.log(user)
 
   const register = [
     "0xE6f94224d01667F13AA97686b9bba484BDb87b91",
@@ -86,35 +85,37 @@ function Header() {
         <p className='text-xs text-gray-400 truncate hidden'>{address?.substring(0,5)}...{address?.substring(address.length, address.length-5)}</p>
         {user && (user.data().isAdmin && <CallModal/> )}
         {/*user && (user.data().isAdmin && <button onClick={() => setIsCallOpen(true)} className='panel text-white mr-4 font-bold'>Admin</button>)*/}
-        <Menu>
-          <Menu.Button className={"hidden md:inline"}>
-            {user && <img className='rounded-full mr-4 border-2 border-slate-800 hover:border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer transition-all' draggable="false" src={user.data().avatar} alt="" />}
+        <Menu as="div" className="relative inline-block text-left">
+          <Menu.Button className={""}>
+            {user && <img className=' rounded-full border-2 border-slate-800 hover:border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer transition-all' draggable="false" src={user.data().avatar} alt="" />}
           </Menu.Button>
-          <Transition
+          <Transition as={Fragment}
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
             enterTo="transform opacity-100 scale-100"
             leave="transition ease-in duration-75"
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95">
-          </Transition>
-          <Menu.Items className={"hidden md:inline absolute w-40 top-24 right-8 bg-slate-600 rounded text-white font-bold p-1"}>
+          <Menu.Items className={"absolute z-10 w-40 top-16 right-0 shadow-xl bg-slate-800 rounded-lg text-white font-bold p-1"}>
             <Menu.Item>
               {({ active }) => (
-                <a className={`${active && 'bg-blue-500 rounded'} group flex w-full rounded-md px-2 py-2 text-sm`} href="">Settings</a>
+                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm`} href={"/caller/" + address}>Profile</a>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a className={`${active && 'bg-blue-500 rounded'} group flex w-full  rounded-md px-2 py-2 text-sm`} href="">Settings</a>
+                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm`} >Settings</a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a className={`${active && 'bg-red-500 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm cursor-pointer`} onClick={disconnect} >Logout</a>
               )}
             </Menu.Item>
           </Menu.Items>
+          </Transition>
         </Menu>
-        <Bars3BottomRightIcon className='h-8 w-8 mx-auto text-white cursor-pointer md:hidden'/>
-        <span className='md:hidden'>
-          <NavButton onClick={disconnect} title='Logout' />
-        </span>
+        
       </div>
     </header>
   )

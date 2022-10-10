@@ -17,10 +17,11 @@ import CallModal from '../../components/CallModal';
 interface Props{
   address: string,
   name: string,
-  subs: string
+  subs: string,
+  calls: any
 }
 
-function Caller({address, name, subs}: Props) {
+function Caller({address, name, subs, calls}: Props) {
   const router = useRouter();
   const connected = useAddress();
   
@@ -34,7 +35,7 @@ function Caller({address, name, subs}: Props) {
             <div className='mb-4 ml-4 space-y-2'>
               <p className='text-xl md:text-3xl font-bold'>{name}</p>
               <Tooltip title="Copy" >
-                <div onClick={() => navigator.clipboard.writeText(address)} className='text-sm  text-slate-300 bg-[#08111f] rounded pl-1 pr-2 pt-0.5 pb-0.5 border-1 border-slate-900 cursor-pointer hover:bg-slate-800 flex '>
+                <div onClick={() => navigator.clipboard.writeText(address)} className='text-sm  text-slate-300 bg-[#08111f] rounded pl-1 pr-2 pt-0.5 pb-0.5 border-1 border-slate-900 cursor-pointer hover:bg-slate-800 inline-flex'>
                   <Image className='' src="/images/eth.png" draggable="false" width={20} height={20}/>
                   <p className=' select-none text-xs self-center md:text-sm'>{address?.substring(0,5)}...{address?.substring(address.length, address.length-5)}</p>             
                 </div>
@@ -71,6 +72,7 @@ function Caller({address, name, subs}: Props) {
           </div>
 
         </div>
+        
         
       {/*<div className='mt-20 mb-20 ml-4 mr-4 border-l border-slate-500 h-full' />*/}
       </div>
@@ -114,7 +116,9 @@ function Caller({address, name, subs}: Props) {
               </div>
             </div>
             <div className='table-row-group p-2 rounded-lg cursor-pointer '>
-              <CallModal name="Bored Ape Yacht Club" bought="0.02" current_sold="0.04" />
+              {calls.filter((call:any) => call.status === "pending").map((call:any) => (
+                <CallModal url={call.collectionURL} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
+              ))}
             </div>
           </div>
         </div>
@@ -172,11 +176,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const caller = await getDoc(docRef);
 
-  
+  const colCalls = await getDocs(collection(collection(db, "callers"), `${callerSlug}`, "calls"))
 
   const address = caller.id
   const name = caller.data()?.name
   const subs = 2983
+
+  let calls: { id: string }[] = []
+
+  colCalls.forEach((doc) =>{
+    calls.push({
+      ...doc.data(), id:doc.id
+    })
+  })
+
 
   if(!caller.exists()){
     return {
@@ -188,7 +201,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props:{
       address,
       name,
-      subs
+      subs,
+      calls
     }
   }
 }

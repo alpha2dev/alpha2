@@ -1,29 +1,59 @@
 import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useState } from 'react'
+import { EllipsisHorizontalCircleIcon, MinusCircleIcon } from '@heroicons/react/24/solid'
+import React, { Fragment, useEffect, useState } from 'react'
+import Axios from 'axios'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+import { useAddress } from '@thirdweb-dev/react'
+import { Skeleton } from '@mui/material'
 
 interface Props{
-    name: string,
-    bought: string,
-    current_sold: string,
+  url: string,
+  callerAddress: string,
+  desc: string,
+  bought: string,
+  current_sold: string,
 }
 
-function CallModal({name, bought, current_sold}: Props) {
-    const [isOpen, setIsOpen] = useState(false)
+function CallModal({url, callerAddress, desc, bought, current_sold}: Props) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [name, setName] = useState()
+  const [img, setImg] = useState()
+  const [floor, setFloor] = useState()
+  const [isOwner, setIsOwner] = useState(false)
+  const router = useRouter()
+  const address = useAddress()
 
-    function closeModal(){
-        setIsOpen(false)
-    }
+  function closeModal(){
+      setIsOpen(false)
+  }
 
-    function openModal(){
-        setIsOpen(true)
-    }
+  function openModal(){
+      setIsOpen(true)
+  }
+  
+  useEffect(() => {
+      if(callerAddress == address) setIsOwner(true)
+      Axios
+      .get(`https://api.opensea.io/api/v1/collection/${url}`)
+      .then(function (response) {
+        setImg(response.data.collection.image_url)
+        setName(response.data.collection.name)
+        setFloor(response.data.collection.stats.floor_price)
+      })
+      .catch(function (error) {
+        console.log(error)
+      });
+  }, [])
+    
+    
 
   return (
     <>
-    <div onClick={openModal} className='table-row hover:bg-violet-900 transition-all'>
-        <p className=' table-cell truncate overflow-hidden pl-2 pt-4 pb-4 rounded-l-lg w-2/3'>{name}</p>
+    <div onClick={openModal} className='table-row hover:bg-slate-800 transition-all'>
+        <p className=' table-cell truncate overflow-hidden pl-2 pt-2 pb-2 rounded-l-lg w-2/3'><MinusCircleIcon className='w-5 inline text-amber-400 mr-2'/><img className='w-14 h-14 object-cover rounded bg-slate-700 inline mr-2' src={img} alt="" />{name}</p>
         <p className='hidden md:table-cell text-right'>{bought}</p>
-        <p className=' table-cell rounded-r-lg text-right pr-2'>{current_sold}</p>
+        <p className=' table-cell rounded-r-lg text-right pr-2'>{floor}</p>
     </div>
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -50,13 +80,47 @@ function CallModal({name, bought, current_sold}: Props) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="panel w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title as="h3" className="text-2xl font-medium leading-6 text-white">{name}</Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-white">This is the description given by the caller about the collection</p>
-                  </div>
-                  <div className="mt-4">
-                    <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" onClick={closeModal}>Got it, thanks!</button>
+                <Dialog.Panel className="panel w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mr-2 -ml-2">
+                  <Dialog.Title as="h3" className="text-2xl font-medium leading-6 text-white"></Dialog.Title>
+                  <div className='space-y-2 text-white'>
+                    <div className="flex items-center text-xl">
+                      {img ? <img className='w-32 h-32 object-cover rounded-lg bg-slate-800' src={img} alt="" /> : <Skeleton variant="rectangular" width={128} height={128} />}
+                      <div className='ml-4 space-y-1'>
+                        <p className='flex-wrap'>{name}</p>
+                        <p onClick={() => router.push("https://opensea.io/collection/" + url)} className='flex text-sm font-medium text-slate-300 cursor-pointer'><img className='w-5 mr-1 ' src="https://opensea.io/static/images/logos/opensea.svg" alt="" />opensea.io</p>
+                        <p className='text-sm font-medium text-slate-300 flex'><MinusCircleIcon className='w-5 text-amber-400 mr-0.5'/>pending</p>
+                      </div>
+                      
+                      
+                    </div>
+                    {desc != "" && <p className="text-sm p-4 border-2 border-slate-800 rounded-lg">{desc}</p>}
+                    <div className='flex items-center justify-center space-x-2'>
+                      <div className='text-center border-2 border-slate-800 p-4 rounded-lg flex-none'>
+                        <div className='flex justify-center'>
+                          <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
+                          <p className='font-medium'>{bought}</p>
+                        </div>
+                        <p className='font-bold'>Buy Price</p>
+                      </div>
+                      <div className='text-center border-2 border-slate-800 p-4 rounded-lg flex-none'>
+                        <div className='flex justify-center'>
+                          <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
+                          <p className='font-medium'>{floor}</p>
+                        </div>
+                        <p className='font-bold'>Floor Price</p>
+                      </div>
+                      <div className='text-center border-2 border-slate-800 p-4 rounded-lg hidden sm:inline flex-none'>
+                        <div className='flex justify-center'>
+                          <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
+                          <p className='font-medium'>{Math.round(((Number.parseFloat(floor!)-Number.parseFloat(bought) + Number.EPSILON))*1000)/1000}</p>
+                        </div>
+                        <p className='font-bold'>Difference</p>
+                      </div>
+                    </div>
+                    <div className="flex justify-between">
+                      <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all" onClick={closeModal}>Close</button>
+                      {isOwner ? <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white disabled:bg-gray-500 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all" >End Call</button> : <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white disabled:bg-gray-500 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all" >Buy</button>}
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

@@ -15,6 +15,7 @@
     "@thirdweb-dev/auth": "^2.0.13",
     "@thirdweb-dev/react": "^3.1.1",
     "@thirdweb-dev/sdk": "^3.1.1",
+    "axios": "^1.1.2",
     "ethers": "^5.7.1",
     "firebase": "^9.10.0",
     "next": "latest",
