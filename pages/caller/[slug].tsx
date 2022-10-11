@@ -203,6 +203,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       name,
       subs,
       calls
-    }
+    },
+    revalidate: 1
   }
 }
