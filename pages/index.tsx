@@ -85,7 +85,7 @@ function Home({callers, users}: Props){
   return (
     <div className="flex flex-col py-2 bg-slate-900 text-white space-y-10 bg">
       <Head>
-        <title>Alpha2 | Revolutionizing Alpha</title>
+        <title>alpha2 | Revolutionizing Alpha</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className=''>

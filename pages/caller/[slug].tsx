@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Login from '../../components/Login';
 import CallModal from '../../components/CallModal';
+import Head from 'next/head';
 
 interface Props{
   address: string,
@@ -27,6 +28,9 @@ function Caller({address, name, subs, calls}: Props) {
   
   return (
     <main className="flex flex-col ml-2 mr-2 xl:ml-40 xl:mr-40 md:ml-20 md:mr-20 xl:mt-14 py-2 bg-slate-900 text-white space-y-4">
+      <Head>
+        <title>{name} - alpha2</title>
+      </Head>
       {/*<img className=' w-1/1 h-56 sm:h-96 object-cover rounded-lg' src="../images/alphabanner.png" alt="" />*/}
       <div className="flex flex-row transition-all relative">
         <div className='flex flex-row mt-8 xl:mb-8 w-full justify-between items-end'>
@@ -117,14 +121,14 @@ function Caller({address, name, subs, calls}: Props) {
             </div>
             <div className='table-row-group p-2 rounded-lg cursor-pointer '>
               {calls.filter((call:any) => call.status === "pending").map((call:any) => (
-                <CallModal url={call.collectionURL} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
+                <CallModal url={call.collectionURL} status={call.status} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
               ))}
             </div>
           </div>
         </div>
-        <div className='bg-[#08111f] p-4 rounded-lg flex flex-1 flex-col'>
+        <div className='bg-[#08111f] p-3 rounded-lg flex flex-1 flex-col'>
           <p className='text-3xl font-bold mb-4'>Call History</p>
-          <div className='table p-2 space-y-2 text-left text-lg font-bold'>
+          <div className='table space-y-2 text-left text-lg font-bold'>
             <div className=' table-header-group text-xs text-slate-400 uppercase'>
               <div className='table-row  '>
                 <p className='tabl
@@ -133,13 +137,9 @@ function Caller({address, name, subs, calls}: Props) {
                 <p className='table-cell text-right pr-2'>sold</p>
               </div>
             </div>
-            <div className='table-row-group p-2 rounded-lg cursor-pointer'>
-              <div className='table-row hover:bg-violet-900 transition-all'>
-                <p className=' table-cell truncate overflow-hidden pl-2 pt-4 pb-4 rounded-l-lg w-2/3'>collection name </p>
-                <p className='hidden md:table-cell text-right'>0.01</p>
-                <p className=' table-cell rounded-r-lg text-right pr-2'>0.03</p>
-              </div>
-            </div>
+            {calls.filter((call:any) => call.status !== "pending").map((call:any) => (
+              <CallModal url={call.collectionURL} status={call.status} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
+            ))}
           </div>
         </div>
       </div>

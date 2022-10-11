@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { EllipsisHorizontalCircleIcon, MinusCircleIcon } from '@heroicons/react/24/solid'
+import { CheckCircleIcon, EllipsisHorizontalCircleIcon, MinusCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
 import React, { Fragment, useEffect, useState } from 'react'
 import Axios from 'axios'
 import { useRouter } from 'next/router'
@@ -10,12 +10,13 @@ import { Skeleton } from '@mui/material'
 interface Props{
   url: string,
   callerAddress: string,
+  status: string,
   desc: string,
   bought: string,
   current_sold: string,
 }
 
-function CallModal({url, callerAddress, desc, bought, current_sold}: Props) {
+function CallModal({url, status, callerAddress, desc, bought, current_sold}: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [name, setName] = useState()
   const [img, setImg] = useState()
@@ -51,7 +52,7 @@ function CallModal({url, callerAddress, desc, bought, current_sold}: Props) {
   return (
     <>
     <div onClick={openModal} className='table-row hover:bg-slate-800 transition-all text-xs sm:text-lg'>
-        <p className=' table-cell truncate overflow-hidden pl-2 pt-2 pb-2 rounded-l-lg w-2/3'><MinusCircleIcon className='w-5 inline text-amber-400 mr-2'/><img className='w-10 h-10 sm:w-14 sm:h-14 object-cover rounded bg-slate-700 inline mr-2' src={img} alt="" />{name}</p>
+        <p className=' table-cell truncate overflow-hidden pl-2 pt-2 pb-2 rounded-l-lg w-2/3'>{status == "pending" && <MinusCircleIcon className='w-5 inline text-amber-400 mr-2 '/>}{status == "successful" && <CheckCircleIcon className='w-5 inline text-green-500 mr-2 '/>}{status == "unsuccessful" && <XCircleIcon className='w-5 inline text-red-500 mr-2 '/>}<img className='w-10 h-10 sm:w-14 sm:h-14 object-cover rounded bg-slate-700 inline mr-2' src={img} alt="" />{name}</p>
         <p className='hidden md:table-cell text-right'>{bought}</p>
         <p className=' table-cell rounded-r-lg text-right pr-2'>{floor}</p>
     </div>
@@ -88,7 +89,11 @@ function CallModal({url, callerAddress, desc, bought, current_sold}: Props) {
                       <div className='ml-4 space-y-1'>
                         <p className='flex-wrap'>{name}</p>
                         <p onClick={() => router.push("https://opensea.io/collection/" + url)} className='flex text-sm font-medium text-slate-300 cursor-pointer'><img className='w-5 mr-1 ' src="https://opensea.io/static/images/logos/opensea.svg" alt="" />opensea.io</p>
-                        <p className='text-sm font-medium text-slate-300 flex'><MinusCircleIcon className='w-5 text-amber-400 mr-0.5'/>pending</p>
+                        <div className='flex items-center'>
+                          {status == "pending" && <MinusCircleIcon className='w-5 text-amber-400 mr-0.5 '/>}{status == "successful" && <CheckCircleIcon className='w-5 inline text-green-500 mr-0.5 '/>}{status == "unsuccessful" && <XCircleIcon className='w-5 inline text-red-500 mr-0.5 '/>}
+                          <p className='text-xs font-medium text-slate-400 flex uppercase text-center'>{status}</p>
+                        </div>
+                        
                       </div>
                       
                       
@@ -119,7 +124,7 @@ function CallModal({url, callerAddress, desc, bought, current_sold}: Props) {
                     </div>
                     <div className="flex justify-between">
                       <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all" onClick={closeModal}>Close</button>
-                      {isOwner ? <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white disabled:bg-gray-500 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all" >End Call</button> : <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white disabled:bg-gray-500 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all" >Buy</button>}
+                      {(status == "pending") && (isOwner ? <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white disabled:bg-gray-500 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all" >End Call</button> : <button type="button" className="inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white disabled:bg-gray-500 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all" >Buy</button>)}
                     </div>
                   </div>
                 </Dialog.Panel>

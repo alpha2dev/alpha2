@@ -17,7 +17,7 @@ function FeaturedCallerItem({name, wallet, OnClick}: Props) {
   }
 
   return (
-    <div onClick={() => handleClick()} className='panel flex flex-col bg-yellow-500 w-60 rounded-lg cursor-pointer transform hover:scale-110 transition-all'>
+    <div onClick={() => handleClick()} className='panel flex-none bg-yellow-500 w-60 rounded-lg cursor-pointer transform hover:scale-110 transition-all'>
         <UserCircleIcon className='flex-none w-40 self-center transition-all'/>
         <div className='flex justify-between'>
           <p>{name}</p>
