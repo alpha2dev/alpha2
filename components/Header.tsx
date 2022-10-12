@@ -12,6 +12,7 @@ import { collection, doc, getDoc, getDocFromServer, getDocs, onSnapshot, setDoc,
 import { db } from '../firebase';
 import { Menu, Transition } from '@headlessui/react';
 import CallModal from './CreateCallModal';
+import Skeleton from '@mui/material/Skeleton';
 
 
 
@@ -84,9 +85,10 @@ function Header() {
         <p className='text-xs text-gray-400 truncate hidden'>{address?.substring(0,5)}...{address?.substring(address.length, address.length-5)}</p>
         {user && (user.data().isAdmin && <CallModal/> )}
         {/*user && (user.data().isAdmin && <button onClick={() => setIsCallOpen(true)} className='panel text-white mr-4 font-bold'>Admin</button>)*/}
+        
         <Menu as="div" className="relative inline-block text-left">
           <Menu.Button className={""}>
-            {user && <img className=' rounded-full border-2 border-slate-800 hover:border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer transition-all' draggable="false" src={user.data().avatar} alt="" />}
+            {user ? <img className=' rounded-full border-2 border-slate-800 hover:border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer transition-all' draggable="false" src={user.data().avatar} alt="" /> : <Skeleton animation="wave" variant="circular" width={48} height={48} />}
           </Menu.Button>
           <Transition as={Fragment}
             enter="transition ease-out duration-100"

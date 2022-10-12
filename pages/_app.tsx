@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return(
     <ThirdwebProvider desiredChainId={ChainId.Mumbai}>
       <Provider store={store}>
-          <div className='bg-slate-900 min-h-screen'>
+          <div className='bg-main min-h-screen'>
             <AuthCheck>
               <Component {...pageProps} />      
             </AuthCheck>

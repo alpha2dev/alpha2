@@ -83,7 +83,7 @@ function Home({callers, users}: Props){
   
   
   return (
-    <div className="flex flex-col py-2 bg-slate-900 text-white space-y-10 bg">
+    <div className="flex flex-col py-2 bg-main text-white space-y-10 bg">
       <Head>
         <title>alpha2 | Revolutionizing Alpha</title>
         <link rel="icon" href="/favicon.ico" />
@@ -91,7 +91,7 @@ function Home({callers, users}: Props){
       <div className=''>
         <div className=' flex flex-row m-10 h-fit space-x-5 justify-center flex-grow-0 flex-shrink-0 overflow-clip p-4'>
           {callers.map((caller: any)=>(
-            <FeaturedCallerItem key={caller.id} name={caller.name} wallet={caller.id} />
+            <FeaturedCallerItem key={caller.id} image={caller.avatar} name={caller.name} wallet={caller.id} />
           ))}
         </div>
         <div className="space-y-5 md:space-y-0 m-5 md:flex md:flex-row items-start justify-center md:space-x-5">

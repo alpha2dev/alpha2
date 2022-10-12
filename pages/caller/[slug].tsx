@@ -27,7 +27,7 @@ function Caller({address, name, subs, calls}: Props) {
   const connected = useAddress();
   
   return (
-    <main className="flex flex-col ml-2 mr-2 xl:ml-40 xl:mr-40 md:ml-20 md:mr-20 xl:mt-14 py-2 bg-slate-900 text-white space-y-4">
+    <main className="flex flex-col ml-2 mr-2 xl:ml-40 xl:mr-40 md:ml-20 md:mr-20 xl:mt-14 py-2 bg-main text-white space-y-4">
       <Head>
         <title>{name} - alpha2</title>
       </Head>
@@ -39,13 +39,13 @@ function Caller({address, name, subs, calls}: Props) {
             <div className='mb-4 ml-4 space-y-2'>
               <p className='text-xl md:text-3xl font-bold'>{name}</p>
               <Tooltip title="Copy" >
-                <div onClick={() => navigator.clipboard.writeText(address)} className='text-sm  text-slate-300 bg-[#08111f] rounded pl-1 pr-2 pt-0.5 pb-0.5 border-1 border-slate-900 cursor-pointer hover:bg-slate-800 inline-flex'>
+                <div onClick={() => navigator.clipboard.writeText(address)} className='text-sm  text-slate-300 bg-[#0a1527] rounded pl-1 pr-2 pt-0.5 pb-0.5 border-1 border-slate-900 cursor-pointer hover:bg-slate-800 inline-flex'>
                   <Image className='' src="/images/eth.png" draggable="false" width={20} height={20}/>
                   <p className=' select-none text-xs self-center md:text-sm'>{address?.substring(0,5)}...{address?.substring(address.length, address.length-5)}</p>             
                 </div>
               </Tooltip>
             </div>
-            <div className='hidden xl:flex flex-row space-x-4 divide-x-2 text-slate-300 divide-gray-800 items-end text-left font-bold ml-8 mb-2 bg-[#08111f] p-2 rounded-lg '>
+            <div className='hidden xl:flex flex-row space-x-4 divide-x-2 text-slate-300 divide-gray-800 items-end text-left font-bold ml-8 mb-2 bg-[#0a1527] p-2 rounded-lg '>
               <div className='p-3'>
                 <p>A+</p>
                 <p>rating</p>
@@ -67,7 +67,7 @@ function Caller({address, name, subs, calls}: Props) {
           <div className='mb-4 hidden sm:flex flex-row items-end'>
             <button className='rounded bg-blue-600 p-3 mr-2 font-bold text-xs md:text-sm uppercase'>Follow</button>
             <div>
-              <div className='flex justify-center bg-[#08111f] p-1 rounded-t'>
+              <div className='flex justify-center bg-[#0a1527] p-1 rounded-t'>
                 <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
                 <p className='self-center font-bold'>0.02</p>
               </div>
@@ -84,13 +84,13 @@ function Caller({address, name, subs, calls}: Props) {
             <button className=' self-end rounded bg-blue-600 p-3 mr-2 font-bold text-xs md:text-sm uppercase'>Follow</button>
             <div className='flex flex-row'>
             <button className='rounded-l bg-purple-800 p-3 font-bold text-xs md:text-sm uppercase'>Subcriptions</button>
-              <div className='flex justify-center bg-[#08111f] p-2 rounded-r'>
+              <div className='flex justify-center bg-[#0a1527] p-2 rounded-r'>
                 <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
                 <p className='self-center font-bold'>0.022</p>
               </div>
             </div>
           </div>
-      <div className='xl:hidden text-xs md:text-sm flex flex-row justify-center space-x-4 divide-x-2 text-slate-300 divide-gray-800 items-start text-left font-bold xl:mb-0 bg-[#08111f] p-2 rounded-lg'>
+      <div className='xl:hidden text-xs md:text-sm flex flex-row justify-center space-x-4 divide-x-2 text-slate-300 divide-gray-800 items-start text-left font-bold xl:mb-0 bg-[#0a1527] p-2 rounded-lg'>
         <div className='p-3'>
           <p>A+</p>
           <p>Rating</p>
@@ -109,7 +109,7 @@ function Caller({address, name, subs, calls}: Props) {
         </div>
       </div>
       <div className='xl:flex flex-row space-y-4 xl:space-x-4 xl:space-y-0'>
-        <div className='bg-[#08111f] p-3 rounded-lg flex flex-1 flex-col'>
+        <div className='bg-[#0a1527] p-3 rounded-lg flex flex-1 flex-col'>
           <p className='text-3xl font-bold mb-4'>Pending Calls</p>
           <div className='table space-y-2 text-left text-lg font-bold border-separate'>
             <div className=' table-header-group text-xs text-slate-400 uppercase'>
@@ -126,7 +126,7 @@ function Caller({address, name, subs, calls}: Props) {
             </div>
           </div>
         </div>
-        <div className='bg-[#08111f] p-3 rounded-lg flex flex-1 flex-col'>
+        <div className='bg-[#0a1527] p-3 rounded-lg flex flex-1 flex-col'>
           <p className='text-3xl font-bold mb-4'>Call History</p>
           <div className='table space-y-2 text-left text-lg font-bold'>
             <div className=' table-header-group text-xs text-slate-400 uppercase'>
@@ -137,9 +137,11 @@ function Caller({address, name, subs, calls}: Props) {
                 <p className='table-cell text-right pr-2'>sold</p>
               </div>
             </div>
-            {calls.filter((call:any) => call.status !== "pending").map((call:any) => (
-              <CallModal url={call.collectionURL} status={call.status} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
-            ))}
+            <div className='table-row-group p-2 rounded-lg cursor-pointer '>
+              {calls.filter((call:any) => call.status !== "pending").map((call:any) => (
+                <CallModal url={call.collectionURL} status={call.status} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
+              ))}
+            </div>
           </div>
         </div>
       </div>
