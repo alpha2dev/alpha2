@@ -120,7 +120,7 @@ function Caller({address, name, subs, calls}: Props) {
             </div>
             <div className='table-row-group p-2 rounded-lg cursor-pointer '>
               {calls.filter((call:any) => call.status === "pending").map((call:any) => (
-                <CallModal url={call.collectionURL} status={call.status} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
+                <CallModal url={call.collectionURL.substring(30, call.collectionURL.length)} status={call.status} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
               ))}
             </div>
           </div>
@@ -138,7 +138,7 @@ function Caller({address, name, subs, calls}: Props) {
             </div>
             <div className='table-row-group p-2 rounded-lg cursor-pointer '>
               {calls.filter((call:any) => call.status !== "pending").map((call:any) => (
-                <CallModal url={call.collectionURL} status={call.status} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
+                <CallModal url={call.collectionURL.substring(30, call.collectionURL.length)} status={call.status} callerAddress={address} desc={call.description} bought="0.02" current_sold="0.04" />
               ))}
             </div>
           </div>

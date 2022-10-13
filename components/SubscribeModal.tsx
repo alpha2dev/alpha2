@@ -23,8 +23,8 @@ function SubscribeModal() {
 
   return (
     <>
-    <button onClick={openModal} className='hidden sm:inline rounded-b alpha-color hover:shadow-lg transition-all w-32 p-3 font-bold text-xs md:text-sm uppercase'>Subcribe</button>
-    <button onClick={openModal} className='sm:hidden inline rounded-l alpha-color p-3 font-bold text-xs md:text-sm uppercase'>Subcribe</button>
+    <button onClick={openModal} className='hidden sm:inline rounded-b alpha-color hover:shadow-lg transition-all w-32 p-3 font-bold text-xs md:text-sm uppercase'>Subscribe</button>
+    <button onClick={openModal} className='sm:hidden inline rounded-l alpha-color p-3 font-bold text-xs md:text-sm uppercase'>Subscribe</button>
     
     <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -103,6 +103,7 @@ function SubscribeModal() {
                         </div>
                       </div>
                     </div>
+                    <button type="button" className="inline-flex rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-all" onClick={closeModal}>Close</button>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
