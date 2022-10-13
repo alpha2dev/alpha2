@@ -9,3 +9,7 @@
 .bg-main{
     @apply bg-[#101c33]
 }
+
+.alpha-color{
+    @apply bg-gradient-to-br from-pink-800 via-fuchsia-800 to-violet-800
+}

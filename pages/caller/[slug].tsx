@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 import Login from '../../components/Login';
 import CallModal from '../../components/CallModal';
 import Head from 'next/head';
+import SubscribeModal from '../../components/SubscribeModal';
 
 interface Props{
   address: string,
@@ -65,13 +66,12 @@ function Caller({address, name, subs, calls}: Props) {
             </div>
           </div>
           <div className='mb-4 hidden sm:flex flex-row items-end'>
-            <button className='rounded bg-blue-600 p-3 mr-2 font-bold text-xs md:text-sm uppercase'>Follow</button>
-            <div>
+            <div className='w-32'>
               <div className='flex justify-center bg-[#0a1527] p-1 rounded-t'>
-                <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
-                <p className='self-center font-bold'>0.02</p>
+                <Image className='flex-none' src="/images/eth.png" draggable="false" width={25} height={25}/>
+                <p className='self-center font-bold truncate'>0.02</p>
               </div>
-              <button className='rounded-b bg-purple-800 p-3 font-bold text-xs md:text-sm uppercase'>Subcriptions</button>
+              <SubscribeModal />
             </div>
           </div>
 
@@ -81,12 +81,11 @@ function Caller({address, name, subs, calls}: Props) {
       {/*<div className='mt-20 mb-20 ml-4 mr-4 border-l border-slate-500 h-full' />*/}
       </div>
       <div className='mb-4 sm:hidden flex flex-row items-end'>
-            <button className=' self-end rounded bg-blue-600 p-3 mr-2 font-bold text-xs md:text-sm uppercase'>Follow</button>
             <div className='flex flex-row'>
-            <button className='rounded-l bg-purple-800 p-3 font-bold text-xs md:text-sm uppercase'>Subcriptions</button>
+              <SubscribeModal />
               <div className='flex justify-center bg-[#0a1527] p-2 rounded-r'>
                 <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
-                <p className='self-center font-bold'>0.022</p>
+                <p className='self-center font-bold mr-1'>0.022</p>
               </div>
             </div>
           </div>
