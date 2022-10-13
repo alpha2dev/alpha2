@@ -118,7 +118,7 @@ function CreateCallModal() {
                       {collectionImage ? <img className='w-32 h-32 object-cover rounded-lg bg-slate-900' src={collectionImage} alt="" /> : <CubeIcon className='w-32 p-6 bg-slate-900 rounded-lg'/> }
                       {collectionName ? <p>{collectionName}</p> : <p>Please select a collection</p>}
                     </div>
-                    {(collectionFloor != "" && collectionVolume != "") && <div className='flex space-x-2 text-white text-center'>
+                    {/*(collectionFloor != "" && collectionVolume != "") && <div className='flex space-x-2 text-white text-center'>
                         <div className='text-center bg-slate-900 p-3 rounded-lg flex-none'>
                           <div className='flex justify-center'>
                             <EthIcon />
@@ -132,6 +132,18 @@ function CreateCallModal() {
                             <p className='font-medium'>{Math.round(Number.parseFloat(collectionVolume))}</p>
                           </div>
                           <p className='font-bold'>Volume</p>
+                        </div>
+  </div>*/}
+                      {(collectionFloor != "" && collectionVolume != "") && <div className='flex text-white text-center divide-x-2 divide-slate-600 rounded-lg'>
+                        <div className='flex p-2'>
+                          <p className='font-bold'>Floor:</p>
+                          <EthIcon />
+                          <p className='font-medium'>{Math.round((Number.parseFloat(collectionFloor) + Number.EPSILON)*1000)/1000}</p>
+                        </div>
+                        <div className='flex p-2'>
+                          <p className='font-bold'>Volume:</p>
+                          <EthIcon />
+                          <p className='font-medium'>{Math.round(Number.parseFloat(collectionVolume))}</p>
                         </div>
                       </div>}
                     <div className='flex items-center truncate'>
