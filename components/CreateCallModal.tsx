@@ -114,7 +114,7 @@ function CreateCallModal() {
                 <Dialog.Panel className="bg-slate-800 w-full max-w-2xl transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all space-y-4">
                   <p className="text-2xl text-white font-bold">Collection</p>
                   <div className="space-y-2">
-                    <div className='flex text-white items-center text-xl space-x-4'>
+                    <div className='flex text-white items-center text-xl space-x-4 ml-1'>
                       {collectionImage ? <img className='w-32 h-32 object-cover rounded-lg bg-slate-900' src={collectionImage} alt="" /> : <CubeIcon className='w-32 p-6 bg-slate-900 rounded-lg'/> }
                       {collectionName ? <p>{collectionName}</p> : <p>Please select a collection</p>}
                     </div>
@@ -147,7 +147,7 @@ function CreateCallModal() {
                         </div>
                       </div>}
                     <div className='flex items-center truncate'>
-                      <button onClick={collectionFetch} className='bg-blue-600 rounded-md p-2 text-sm font-medium mr-2 text-white hover:bg-blue-700 font'>Paste</button>
+                      <button onClick={collectionFetch} className='bg-blue-600 rounded-md ml-1 p-2 text-sm font-medium mr-2 text-white hover:bg-blue-700 font'>Paste</button>
                       {collectionURL=="" ? <p className='text-gray-400 bg-slate-900 p-2 rounded-lg'>Please paste opensea collection url</p> : <p className='text-gray-400 bg-slate-900 p-2 rounded-lg'>{collectionURL}</p>}
                     </div>
                   </div>

@@ -205,6 +205,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       subs,
       calls
     },
+    fallback: 'blocking',
     revalidate: 1
   }
 }
