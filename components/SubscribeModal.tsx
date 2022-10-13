@@ -9,59 +9,16 @@ import { useRouter } from 'next/router'
 import EthIcon from './EthIcon'
 
 function SubscribeModal() {
-    const address = useAddress()
-    const router = useRouter()
     const [isOpen, setIsOpen] = useState(false)
-    const inputRef = useRef<any>()
-    const descriptionRef = useRef<any>()
-    const [selected, setSelected] = useState(false)
-    const [collectionURL, setCollectionURL] = useState("")
-    const [collectionImage, setCollectionImage] = useState("")
-    const [collectionName, setCollectionName] = useState("")
 
     function closeModal(){
         setIsOpen(false)
-        setCollectionImage("")
-        setCollectionName("")
-        setCollectionURL("")
-        setSelected(false)
     }
 
     function openModal(){
         setIsOpen(true)
-        setSelected(false)
     }
 
-    const collectionFetch = () => {
-      setCollectionURL(inputRef.current.value)
-      axios
-      .get('https://api.opensea.io/api/v1/collection/' + inputRef.current.value)
-      .then(function (response) {
-        setCollectionImage(response.data.collection.image_url)
-        setCollectionName(response.data.collection.name)
-        setSelected(true)
-      })
-      .catch(function (error) {
-        setCollectionName("Invalid Collection")
-        setCollectionImage("")
-        setSelected(false)
-      });
-      
-    }
-    const createCall = () => {
-      const call = {
-        address: address,
-        collectionURL: collectionURL,
-        collectionName: collectionName,
-        collectionImage: collectionImage,
-        description: descriptionRef.current.value,
-        status: "pending"
-      }
-      const callersRef = collection(db, "callers")
-      addDoc(collection(callersRef, `${address}`, "calls"), call)
-      closeModal()
-      router.push("/caller/" + address)
-    }
     
 
   return (

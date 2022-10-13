@@ -88,7 +88,7 @@ function CallModal({url, status, callerAddress, desc, bought, current_sold}: Pro
                       {img ? <img className='w-32 h-32 object-cover rounded-lg bg-slate-800' src={img} alt="" /> : <Skeleton variant="rectangular" width={128} height={128} />}
                       <div className='ml-4 space-y-1'>
                         <p className='flex-wrap'>{name}</p>
-                        <p onClick={() => router.push("https://opensea.io/collection/" + url)} className='flex text-sm font-medium text-slate-300 cursor-pointer'><img className='w-5 mr-1 ' src="https://opensea.io/static/images/logos/opensea.svg" alt="" />opensea.io</p>
+                        <p onClick={() => window.open("https://opensea.io/collection/" + url)} className='flex text-sm font-medium text-slate-300 cursor-pointer'><img className='w-5 mr-1 ' src="https://opensea.io/static/images/logos/opensea.svg" alt="" />opensea.io</p>
                         <div className='flex items-center'>
                           {status == "pending" && <MinusCircleIcon className='w-5 text-amber-400 mr-0.5 '/>}{status == "successful" && <CheckCircleIcon className='w-5 inline text-green-500 mr-0.5 '/>}{status == "unsuccessful" && <XCircleIcon className='w-5 inline text-red-500 mr-0.5 '/>}
                           <p className='text-xs font-medium text-slate-400 flex uppercase text-center'>{status}</p>
