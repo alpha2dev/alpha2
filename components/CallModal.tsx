@@ -81,11 +81,11 @@ function CallModal({url, status, callerAddress, desc, bought, current_sold}: Pro
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="panel w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mr-2 -ml-2">
+                <Dialog.Panel className="bg-slate-800 w-full max-w-2xl transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all mr-2 -ml-2">
                   <Dialog.Title as="h3" className="text-2xl font-medium leading-6 text-white"></Dialog.Title>
                   <div className='space-y-2 text-white'>
                     <div className="flex items-center text-xl">
-                      {img ? <img className='w-32 h-32 object-cover rounded-lg bg-slate-800' src={img} alt="" /> : <Skeleton variant="rectangular" width={128} height={128} />}
+                      {img ? <img className='w-32 h-32 object-cover rounded-lg bg-slate-900' src={img} alt="" /> : <Skeleton variant="rectangular" width={128} height={128} />}
                       <div className='ml-4 space-y-1'>
                         <p className='flex-wrap'>{name}</p>
                         <p onClick={() => window.open("https://opensea.io/collection/" + url)} className='flex text-sm font-medium text-slate-300 cursor-pointer'><img className='w-5 mr-1 ' src="https://opensea.io/static/images/logos/opensea.svg" alt="" />opensea.io</p>
@@ -98,23 +98,23 @@ function CallModal({url, status, callerAddress, desc, bought, current_sold}: Pro
                       
                       
                     </div>
-                    {desc != "" && <p className="text-sm p-4 border-2 border-slate-800 rounded-lg">{desc}</p>}
+                    {desc != "" && <p className="text-sm p-4 bg-slate-900 rounded-lg">{desc}</p>}
                     <div className='flex items-center justify-center space-x-2'>
-                      <div className='text-center border-2 border-slate-800 p-4 rounded-lg flex-none'>
+                      <div className='text-center bg-slate-900 p-4 rounded-lg flex-none'>
                         <div className='flex justify-center'>
                           <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
                           <p className='font-medium'>{bought}</p>
                         </div>
                         <p className='font-bold'>Buy Price</p>
                       </div>
-                      <div className='text-center border-2 border-slate-800 p-4 rounded-lg flex-none'>
+                      <div className='text-center bg-slate-900 p-4 rounded-lg flex-none'>
                         <div className='flex justify-center'>
                           <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
                           <p className='font-medium'>{floor}</p>
                         </div>
                         <p className='font-bold'>Floor Price</p>
                       </div>
-                      <div className='text-center border-2 border-slate-800 p-4 rounded-lg hidden sm:inline flex-none'>
+                      <div className='text-center bg-slate-900 p-4 rounded-lg hidden sm:inline flex-none'>
                         <div className='flex justify-center'>
                           <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
                           <p className='font-medium'>{Math.round(((Number.parseFloat(floor!)-Number.parseFloat(bought) + Number.EPSILON))*1000)/1000}</p>

@@ -13,6 +13,7 @@ import { db } from '../firebase';
 import { Menu, Transition } from '@headlessui/react';
 import CallModal from './CreateCallModal';
 import Skeleton from '@mui/material/Skeleton';
+import AdminModal from './AdminModal';
 
 
 
@@ -98,16 +99,21 @@ function Header() {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95">
           <Menu.Items className={"absolute z-10 w-40 top-16 right-0 shadow-xl bg-slate-800 rounded-lg text-white font-bold p-1"}>
-            <Menu.Item>
+            {user && (user.data().isCaller && <Menu.Item>
               {({ active }) => (
-                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm`} href={"/caller/" + address}>Profile</a>
+                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm`} onClick={() => router.push("/caller/" + address)}>Profile</a>
               )}
-            </Menu.Item>
+            </Menu.Item>)}
             <Menu.Item>
               {({ active }) => (
                 <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm`} >Settings</a>
               )}
             </Menu.Item>
+            {user && (user.data().isAdmin && <Menu.Item>
+              {({ active }) => (
+                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm`} onClick={() => router.push("/admin")}>Admin</a>
+              )}
+            </Menu.Item>)}
             <Menu.Item>
               {({ active }) => (
                 <a className={`${active && 'bg-red-500 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm cursor-pointer`} onClick={disconnect} >Logout</a>

@@ -1,6 +1,6 @@
 import { UserCircleIcon } from '@heroicons/react/24/solid';
 import { query, collection, getDocs, where, getDoc, doc } from 'firebase/firestore';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticProps } from 'next';
 import React from 'react'
 import Header from '../../components/Header';
 import { db } from '../../firebase'
@@ -17,6 +17,7 @@ import Head from 'next/head';
 import SubscribeModal from '../../components/SubscribeModal';
 
 interface Props{
+  page:any,
   address: string,
   name: string,
   subs: string,
@@ -56,8 +57,8 @@ function Caller({address, name, subs, calls}: Props) {
                 <p className=''>success</p>
               </div>
               <div className='p-3'>
-                  <p>12343212</p>
-                  <p>followers</p>
+                  <p>12</p>
+                  <p>calls</p>
                 </div>
               <div className='p-3'>
                 <p>223</p>
@@ -71,7 +72,7 @@ function Caller({address, name, subs, calls}: Props) {
                 <Image className='flex-none' src="/images/eth.png" draggable="false" width={25} height={25}/>
                 <p className='self-center font-bold truncate'>0.02</p>
               </div>
-              <SubscribeModal />
+              <SubscribeModal callerAddress={address} />
             </div>
           </div>
 
@@ -82,7 +83,7 @@ function Caller({address, name, subs, calls}: Props) {
       </div>
       <div className='mb-4 sm:hidden flex flex-row items-end'>
             <div className='flex flex-row'>
-              <SubscribeModal />
+              <SubscribeModal callerAddress={address} />
               <div className='flex justify-center bg-[#0a1527] p-2 rounded-r'>
                 <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
                 <p className='self-center font-bold mr-1'>0.022</p>
@@ -92,19 +93,19 @@ function Caller({address, name, subs, calls}: Props) {
       <div className='xl:hidden text-xs md:text-sm flex flex-row justify-center space-x-4 divide-x-2 text-slate-300 divide-gray-800 items-start text-left font-bold xl:mb-0 bg-[#0a1527] p-2 rounded-lg'>
         <div className='p-3'>
           <p>A+</p>
-          <p>Rating</p>
+          <p>rating</p>
         </div>
         <div className='p-3'>
           <p className='text-md'>90%</p>
-          <p className=''>Success</p>
+          <p className=''>success</p>
         </div>
         <div className='p-3'>
-            <p>12343212</p>
-            <p>Followers</p>
+            <p>12</p>
+            <p>calls</p>
           </div>
         <div className='p-3'>
           <p>223</p>
-          <p>Subscribers</p>
+          <p>subscribers</p>
         </div>
       </div>
       <div className='xl:flex flex-row space-y-4 xl:space-x-4 xl:space-y-0'>
@@ -152,24 +153,25 @@ function Caller({address, name, subs, calls}: Props) {
 
 export default Caller;
 
-export const getStaticPaths = async () => {
+
+// export const getStaticPaths = async () => {
   
-  const callers = await getDocs(collection(db, "callers"));
+//   const callers = await getDocs(collection(db, "callers"));
 
 
-  const paths = callers.docs.map(caller => ({
-    params: {
-      slug: caller.id
-    }
-  }))
+//   const paths = callers.docs.map(caller => ({
+//     params: {
+//       slug: caller.id
+//     }
+//   }))
 
-  return {
-    paths,
-    fallback: 'blocking'
-  }
-};
+//   return {
+//     paths,
+//     fallback: 'blocking'
+//   }
+// };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const callerSlug = context.params?.slug;
 
@@ -178,6 +180,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const caller = await getDoc(docRef);
 
   const colCalls = await getDocs(collection(collection(db, "callers"), `${callerSlug}`, "calls"))
+  const colCallers = await getDocs(collection(db, "callers"))
+
+  let callers: { id: string; }[] = []
+
+  colCallers.forEach((doc) =>{
+    callers.push({
+      ...doc.data(), id:doc.id
+    })
+  })
 
   const address = caller.id
   const name = caller.data()?.name
@@ -198,14 +209,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   }
 
+  const page = callers.find((caller) => {
+    return caller.id === callerSlug
+  })
+
   return {
     props:{
+      page,
       address,
       name,
       subs,
       calls
     },
-    fallback: 'blocking',
-    revalidate: 1
   }
+
+  
 }

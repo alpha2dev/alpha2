@@ -16,9 +16,10 @@ function FeaturedCallerItem({name, image, wallet, OnClick}: Props) {
   const handleClick = () => {
       router.push('/caller/' + wallet)
   }
+  console.log(image)
 
   return (
-    <div onClick={() => handleClick()} className='panel flex-none bg-yellow-500 w-60 rounded-lg cursor-pointer transform hover:scale-110 transition-all'>
+    <div onClick={() => handleClick()} className='bg-slate-900 flex-none rounded-lg cursor-pointer transform hover:scale-110 transition-all'>
       <img src={image} alt="" />
       <UserCircleIcon className='flex-none w-40 self-center transition-all'/>
       <div className='flex justify-between'>
