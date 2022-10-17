@@ -75,7 +75,9 @@ function CreateCallModal() {
       const callersRef = collection(db, "callers")
       addDoc(collection(callersRef, `${address}`, "calls"), call)
       closeModal()
-      router.push("/caller/" + address)
+      setTimeout(function() {
+        router.push("/caller/" + address)
+      }, 500)
     }
     
 

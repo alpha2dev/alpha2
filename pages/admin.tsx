@@ -1,7 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/solid'
 import { useAddress } from '@thirdweb-dev/react'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import React, { Fragment, useEffect, useState } from 'react'
@@ -28,6 +28,17 @@ function admin({callers, users}: Props) {
             }
         }))
     })
+
+    function callerButton(){
+        const data = {
+            name: selected.name,
+            avatar: selected.avatar,
+            banner: selected.banner,
+          }
+        setDoc(doc(db, "callers", `${selected.id}`), data)
+        updateDoc(doc(db, "users", `${selected.id}`), {isCaller: true})
+        router.reload()
+    }
 
     return (
         <div>
@@ -87,7 +98,7 @@ function admin({callers, users}: Props) {
                             </Transition>
                             </div>
                         </Listbox>
-                        <button className='p-1 bg-blue-600 rounded-lg mt-2'>Make Caller</button>
+                        {!selected.isCaller && <button className='p-1 bg-blue-600 rounded-lg mt-2' onClick={callerButton}>Make Caller</button>}
                     </div>
                 </div>
             </div>}

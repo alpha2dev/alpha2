@@ -61,11 +61,11 @@ function Home({callers, users}: Props){
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className=''>
-        <div className=' flex flex-row m-10 h-fit space-x-5 justify-center flex-grow-0 flex-shrink-0 overflow-clip p-4'>
+        <section className='flex flex-nowrap overflow-x-auto snap-x snap-mandatory space-x-5 px-5 justify-center mt-4 no-scrollbar'>
           {callers.map((caller:any) =>(
             <FeaturedCallerItem key={caller.id} image={caller.avatar} name={caller.name} wallet={caller.id} />
           ))}
-        </div>
+        </section>
         <div className="space-y-5 md:space-y-0 m-5 md:flex md:flex-row items-start justify-center md:space-x-5">
           <div className='panel flex-col space-y-4 md:w-[600px] overflow-auto'>
             <h1 className="text-3xl text-white font-semibold text-left">Popular</h1>
