@@ -37,7 +37,6 @@ function admin({callers, users}: Props) {
           }
         setDoc(doc(db, "callers", `${selected.id}`), data)
         updateDoc(doc(db, "users", `${selected.id}`), {isCaller: true})
-        router.reload()
     }
 
     return (

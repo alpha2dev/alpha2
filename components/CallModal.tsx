@@ -85,7 +85,7 @@ function CallModal({url, status, callerAddress, desc, bought, current_sold}: Pro
                   <Dialog.Title as="h3" className="text-2xl font-medium leading-6 text-white"></Dialog.Title>
                   <div className='space-y-2 text-white'>
                     <div className="flex items-center text-xl">
-                      {img ? <img className='w-32 h-32 object-cover rounded-lg bg-slate-900' src={img} alt="" /> : <Skeleton variant="rectangular" width={128} height={128} />}
+                      {img ? <img className='w-32 h-32 object-cover rounded-lg bg-slate-900' src={img} alt="" /> : <Skeleton variant="rectangular" width={200} height={200} />}
                       <div className='ml-4 space-y-1'>
                         <p className='flex-wrap'>{name}</p>
                         <p onClick={() => window.open("https://opensea.io/collection/" + url)} className='flex text-sm font-medium text-slate-300 cursor-pointer'><img className='w-5 mr-1 ' src="https://opensea.io/static/images/logos/opensea.svg" alt="" />opensea.io</p>

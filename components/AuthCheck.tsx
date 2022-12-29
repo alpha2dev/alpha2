@@ -17,11 +17,11 @@ function AuthCheck({children}: any) {
       ]
     
     
-      register.forEach(element => {
-        if(!authorized && address == element){
-          setAuthorized(true)
-        } 
-      }); 
+    register.forEach(element => {
+      if(!authorized && address == element){
+        setAuthorized(true)
+      } 
+    }); 
       
     if(authorized && !address){
         setAuthorized(false)

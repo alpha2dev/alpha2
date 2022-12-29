@@ -62,8 +62,8 @@ function Home({callers, users}: Props){
       </Head>
       <div className=''>
         <section className='flex flex-nowrap overflow-x-auto snap-x snap-mandatory space-x-5 px-5 justify-center mt-4 no-scrollbar'>
-          {callers.map((caller:any) =>(
-            <FeaturedCallerItem key={caller.id} image={caller.avatar} name={caller.name} wallet={caller.id} />
+          {users.map((user:any) =>(
+            <FeaturedCallerItem key={user.id} image={user.avatar} name={user.name} wallet={user.id} />
           ))}
         </section>
         <div className="space-y-5 md:space-y-0 m-5 md:flex md:flex-row items-start justify-center md:space-x-5">
