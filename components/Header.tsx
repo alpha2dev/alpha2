@@ -61,14 +61,7 @@ function Header() {
       verified = true
     } 
   }); 
-
-
-
-  // if(address && !verified ) router.push("/login")
-
-
-  // if(router.pathname != "/login" && !address) router.push("/login")
-
+  
   return (
     <header className='grid grid-cols-2 md:grid-cols-5 justify-between items-center pt-4 bg-slate-900 bg-inherit'>
       <div className=' flex items-center'>
@@ -84,7 +77,7 @@ function Header() {
       <div className='flex flex-row ml-auto text-right items-center pr-4'>
         {isCaller && <p className='text-xs text-red-400 truncate hidden'>Alpha Caller</p>}
         <p className='text-xs text-gray-400 truncate hidden'>{address?.substring(0,5)}...{address?.substring(address.length, address.length-5)}</p>
-        {user && (user.data().isAdmin && <CallModal/> )}
+        {user && (user.data().isCaller && <CallModal/> )}
         {/*user && (user.data().isAdmin && <button onClick={() => setIsCallOpen(true)} className='panel text-white mr-4 font-bold'>Admin</button>)*/}
         
         <Menu as="div" className="relative inline-block text-left">
@@ -101,17 +94,17 @@ function Header() {
           <Menu.Items className={"absolute z-10 w-40 top-16 right-0 shadow-xl bg-slate-800 rounded-lg text-white font-bold p-1"}>
             {user && (user.data().isCaller && <Menu.Item>
               {({ active }) => (
-                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm`} onClick={() => router.push("/caller/" + address)}>Profile</a>
+                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm cursor-pointer`} onClick={() => router.push("/caller/" + address)}>Profile</a>
               )}
             </Menu.Item>)}
             <Menu.Item>
               {({ active }) => (
-                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm`} >Settings</a>
+                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm cursor-pointer`} onClick={() => router.push("/account")}>Settings</a>
               )}
             </Menu.Item>
             {user && (user.data().isAdmin && <Menu.Item>
               {({ active }) => (
-                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm`} onClick={() => router.push("/admin")}>Admin</a>
+                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm cursor-pointer`} onClick={() => router.push("/admin")}>Admin</a>
               )}
             </Menu.Item>)}
             <Menu.Item>
