@@ -20,22 +20,22 @@ import { useAddressUser } from '../../hooks/useAddressUser';
 type User = {
   address: string,
   name: string,
+  avatar: string
   }
 
 interface Props{
   caller: User,
-  calls: any
+  loadedCalls: any
 }
 
-function Caller({caller}: Props) {
+function Caller({caller, loadedCalls}: Props) {
   const router = useRouter();
   const address = useAddress();
-  const [calls, setCalls] = useState<any>([])
+  const [calls, setCalls] = useState<any>(loadedCalls)
   
   const user = useAddressUser(caller.address)
-
   useEffect(() => {
-    onSnapshot(query(collection(db, "users", user.address, "calls"), orderBy("collectionURL")), (snapshot) => {
+    onSnapshot(query(collection(db, "users", caller.address, "calls")), (snapshot) => {
       const docs: any[] = []
       setCalls(snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -50,19 +50,19 @@ function Caller({caller}: Props) {
   return (
     <main className="flex flex-col ml-2 mr-2 xl:ml-40 xl:mr-40 md:ml-20 md:mr-20 xl:mt-14 py-2 bg-main text-white space-y-4">
       <Head>
-        <title>{user.name} - alpha2</title>
+        <title>{caller.name} - alpha2</title>
       </Head>
       {/*<img className=' w-1/1 h-56 sm:h-96 object-cover rounded-lg' src="../images/alphabanner.png" alt="" />*/}
       <div className="flex flex-row transition-all relative">
         <div className='flex flex-row mt-8 xl:mb-8 w-full justify-between items-end'>
           <div className='flex items-end'>
-            <img className='rounded-full border-4 border-slate-800 align-middle h-28 w-28 md:h-32 md:w-32 object-cover' draggable="false" src="/images/sponge.png"/>
+            <img className='rounded-full border-4 border-slate-800 align-middle h-28 w-28 md:h-32 md:w-32 object-cover' draggable="false" src={caller.avatar}/>
             <div className='mb-4 ml-4 space-y-2'>
-              <p className='text-xl md:text-3xl font-bold'>{user.name}</p>
+              <p className='text-xl md:text-3xl font-bold'>{caller.name}</p>
               <Tooltip title="Copy" >
-                <div onClick={() => navigator.clipboard.writeText(user.address)} className='text-sm  text-slate-300 bg-[#0a1527] rounded pl-1 pr-2 pt-0.5 pb-0.5 border-1 border-slate-900 cursor-pointer hover:bg-slate-800 inline-flex'>
+                <div onClick={() => navigator.clipboard.writeText(caller.address)} className='text-sm  text-slate-300 bg-[#0a1527] rounded pl-1 pr-2 pt-0.5 pb-0.5 border-1 border-slate-900 cursor-pointer hover:bg-slate-800 inline-flex'>
                   <Image className='' src="/images/eth.png" draggable="false" width={20} height={20}/>
-                  <p className=' select-none text-xs self-center md:text-sm'>{user.address?.substring(0,5)}...{user.address?.substring(user.address.length, user.address.length-5)}</p>             
+                  <p className=' select-none text-xs self-center md:text-sm'>{caller.address?.substring(0,5)}...{caller.address?.substring(caller.address.length, caller.address.length-5)}</p>             
                 </div>
               </Tooltip>
             </div>
@@ -91,7 +91,7 @@ function Caller({caller}: Props) {
                 <Image className='flex-none' src="/images/eth.png" draggable="false" width={25} height={25}/>
                 <p className='self-center font-bold truncate'>0.02</p>
               </div>
-              <SubscribeModal callerAddress={user.address} />
+              <SubscribeModal callerAddress={caller.address} />
             </div>
           </div>
 
@@ -102,7 +102,7 @@ function Caller({caller}: Props) {
       </div>
       <div className='mb-4 sm:hidden flex flex-row items-end'>
         <div className='flex flex-row'>
-          <SubscribeModal callerAddress={user.address} />
+          <SubscribeModal callerAddress={caller.address} />
           <div className='flex justify-center bg-[#0a1527] p-2 rounded-r'>
             <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
             <p className='self-center font-bold mr-1'>0.022</p>
@@ -140,7 +140,7 @@ function Caller({caller}: Props) {
             </div>
             <div className='table-row-group p-2 rounded-lg cursor-pointer '>
               {calls.filter((call:any) => call.status === "pending").map((call:any) => (
-                <CallModal key={call.id} url={call.collectionURL.substring(30, call.collectionURL.length)} status={call.status} callerAddress={user.address} desc={call.description} bought="0.02" current_sold="0.04" />
+                <CallModal key={call.id} url={call.collectionURL.substring(30, call.collectionURL.length)} status={call.status} callerAddress={caller.address} desc={call.description} bought="0.02" current_sold="0.04" />
               ))}
             </div>
           </div>
@@ -157,7 +157,7 @@ function Caller({caller}: Props) {
             </div>
             <div className='table-row-group p-2 rounded-lg cursor-pointer '>
               {calls.filter((call:any) => call.status !== "pending").map((call:any) => (
-                <CallModal key={call.id} url={call.collectionURL.substring(30, call.collectionURL.length)} status={call.status} callerAddress={user.address} desc={call.description} bought="0.02" current_sold="0.04" />
+                <CallModal key={call.id} url={call.collectionURL.substring(30, call.collectionURL.length)} status={call.status} callerAddress={caller.address} desc={call.description} bought="0.02" current_sold="0.04" />
               ))}
             </div>
           </div>
@@ -197,12 +197,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const colCalls = await getDocs(collection(collection(db, "users"), `${callerSlug}`, "calls"))
 
-  let calls: { id: string }[] = []
+  let loadedCalls: { id: string }[] = []
 
-  let caller: User = {address: userDoc.id, name: userDoc.data()!.name}
+  let caller: User = {address: userDoc.id, name: userDoc.data()!.name, avatar: userDoc.data()!.avatar}
 
   colCalls.forEach((doc) =>{
-    calls.push({
+    loadedCalls.push({
       ...doc.data(), id:doc.id
     })
   })
@@ -222,7 +222,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props:{
       caller,
-      calls
+      loadedCalls
     },
   }
 }

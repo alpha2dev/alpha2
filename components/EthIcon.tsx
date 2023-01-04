@@ -1,9 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
 
-function EthIcon() {
+function EthIcon({width, height}: any) {
   return (
-    <Image className='flex-none' src="/images/eth.png" draggable="false" width={25} height={25}/>
+    <Image className='flex-none' src="/images/eth.png" draggable="false" width={width} height={height}/>
   )
 }
 

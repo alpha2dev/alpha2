@@ -52,7 +52,7 @@ function CallModal({url, status, callerAddress, desc, bought, current_sold}: Pro
   return (
     <>
     <div onClick={openModal} className='table-row hover:bg-slate-800 transition-all text-xs sm:text-lg'>
-        <p className=' table-cell truncate overflow-hidden pl-2 pt-2 pb-2 rounded-l-lg w-2/3'>{status == "pending" && <MinusCircleIcon className='w-5 inline text-amber-400 mr-2 '/>}{status == "successful" && <CheckCircleIcon className='w-5 inline text-green-500 mr-2 '/>}{status == "unsuccessful" && <XCircleIcon className='w-5 inline text-red-500 mr-2 '/>}<img className='w-10 h-10 sm:w-14 sm:h-14 object-cover rounded bg-slate-700 inline mr-2' src={img} alt="" />{name}</p>
+        <p className=' table-cell truncate overflow-hidden pl-2 pt-2 pb-2 rounded-l-lg w-2/3'>{status == "pending" && <MinusCircleIcon className='w-5 inline text-amber-400 mr-2 '/>}{status == "successful" && <CheckCircleIcon className='w-5 inline text-green-500 mr-2 '/>}{status == "unsuccessful" && <XCircleIcon className='w-5 inline text-red-500 mr-2 '/>}{name ? <img className='w-10 h-10 sm:w-14 sm:h-14 object-cover rounded bg-slate-700 inline mr-2' src={img} alt="" /> : <Skeleton sx={{bgcolor: 'grey.900', display: 'inline'}} variant='rounded' animation="wave" width={40} height={40}/>}{name}</p>
         <p className='hidden md:table-cell text-right'>{bought}</p>
         <p className=' table-cell rounded-r-lg text-right pr-2'>{floor}</p>
     </div>
@@ -91,12 +91,9 @@ function CallModal({url, status, callerAddress, desc, bought, current_sold}: Pro
                         <p onClick={() => window.open("https://opensea.io/collection/" + url)} className='flex text-sm font-medium text-slate-300 cursor-pointer'><img className='w-5 mr-1 ' src="https://opensea.io/static/images/logos/opensea.svg" alt="" />opensea.io</p>
                         <div className='flex items-center'>
                           {status == "pending" && <MinusCircleIcon className='w-5 text-amber-400 mr-0.5 '/>}{status == "successful" && <CheckCircleIcon className='w-5 inline text-green-500 mr-0.5 '/>}{status == "unsuccessful" && <XCircleIcon className='w-5 inline text-red-500 mr-0.5 '/>}
-                          <p className='text-xs font-medium text-slate-400 flex uppercase text-center'>{status}</p>
+                          <p className='text-xs font-medium text-slate-400 flex uppercase text-center'>{status} sale</p>
                         </div>
-                        
                       </div>
-                      
-                      
                     </div>
                     {desc != "" && <p className="text-sm p-4 bg-slate-900 rounded-lg">{desc}</p>}
                     <div className='flex items-center justify-center space-x-2'>
@@ -105,14 +102,14 @@ function CallModal({url, status, callerAddress, desc, bought, current_sold}: Pro
                           <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
                           <p className='font-medium'>{bought}</p>
                         </div>
-                        <p className='font-bold'>Buy Price</p>
+                        <p className='font-bold'>Buy Floor</p>
                       </div>
                       <div className='text-center bg-slate-900 p-4 rounded-lg flex-none'>
                         <div className='flex justify-center'>
                           <Image className='' src="/images/eth.png" draggable="false" width={25} height={25}/>
                           <p className='font-medium'>{floor}</p>
                         </div>
-                        <p className='font-bold'>Floor Price</p>
+                        <p className='font-bold'>Current Floor</p>
                       </div>
                       <div className='text-center bg-slate-900 p-4 rounded-lg hidden sm:inline flex-none'>
                         <div className='flex justify-center'>

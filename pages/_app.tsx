@@ -16,7 +16,7 @@ import AuthCheck from '../components/AuthCheck'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return(
-    <ThirdwebProvider desiredChainId={ChainId.Mumbai}>
+    <ThirdwebProvider desiredChainId={ChainId.Goerli}>
       <Provider store={store}>
           <div className='bg-main min-h-screen'>
             <AuthCheck>

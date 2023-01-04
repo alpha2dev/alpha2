@@ -65,7 +65,7 @@ function Header() {
   return (
     <header className='grid grid-cols-2 md:grid-cols-5 justify-between items-center pt-4 bg-slate-900 bg-inherit'>
       <div className=' flex items-center'>
-        <Image onClick={() => router.push("/")} className='cursor-pointer' src="/images/alphawordlogo.png" draggable="false" width={216} height={60}/>
+        <Image onClick={() => router.push("/")} className='cursor-pointer' src={"/images/alphawordlogo.png"} draggable="false" width={216} height={60}/>
       </div>
       <div className='hidden md:flex md:col-span-3 items-center justify-center whitespace-nowrap'>
         <div className='panel space-x-10 rounded'>
@@ -82,7 +82,7 @@ function Header() {
         
         <Menu as="div" className="relative inline-block text-left">
           <Menu.Button className={""}>
-            {user ? <img className=' rounded-full border-2 border-slate-800 hover:border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer transition-all' draggable="false" src={user.data().avatar} alt="" /> : <Skeleton animation="wave" variant="circular" width={48} height={48} />}
+            {user ? <img className=' rounded-full border-2 border-slate-800 hover:border-slate-600 align-middle h-12 w-12 object-cover cursor-pointer transition-all' draggable="false" src={user.data().avatar} alt="" /> : <Skeleton animation="wave" sx={{bgcolor: 'grey.900'}} variant="circular" width={48} height={48} />}
           </Menu.Button>
           <Transition as={Fragment}
             enter="transition ease-out duration-100"
@@ -99,7 +99,7 @@ function Header() {
             </Menu.Item>)}
             <Menu.Item>
               {({ active }) => (
-                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm cursor-pointer`} onClick={() => router.push("/account")}>Settings</a>
+                <a className={`${active && 'bg-slate-700 rounded'} group flex w-full rounded-lg px-2 py-2 text-sm cursor-pointer`} onClick={() => router.push("/account")}>Account</a>
               )}
             </Menu.Item>
             {user && (user.data().isAdmin && <Menu.Item>

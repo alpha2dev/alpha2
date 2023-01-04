@@ -108,7 +108,7 @@ function CreateCallModal() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="bg-slate-800 w-full max-w-2xl transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all space-y-4">
+                <Dialog.Panel className="bg-slate-800 w-full max-w-2xl transform overflow-hidden rounded-2xl p-6 text-left shadow-xl transition-all space-y-4">
                   <p className="text-2xl text-white font-bold">Collection</p>
                   <div className="space-y-2">
                     <div className='flex text-white items-center text-xl space-x-4 ml-1'>
@@ -130,17 +130,17 @@ function CreateCallModal() {
                           </div>
                           <p className='font-bold'>Volume</p>
                         </div>
-  </div>*/}
-                      {(collectionFloor != "" && collectionVolume != "") && <div className='flex text-white text-center divide-x-2 divide-slate-600 rounded-lg'>
-                        <div className='flex p-2'>
-                          <p className='font-bold'>Floor:</p>
-                          <EthIcon />
-                          <p className='font-medium'>{Math.round((Number.parseFloat(collectionFloor) + Number.EPSILON)*1000)/1000}</p>
+                      </div>*/}
+                      {(collectionFloor != "" && collectionVolume != "") && <div className='flex text-white rounded-lg space-x-2 pl-1'>
+                        <div className='flex p-2 bg-slate-900 rounded-lg'>
+                          <p className='font-medium uppercase text-sm text-gray-400 pt-1 pr-1'>Floor</p>
+                          <EthIcon width={25} height={20} />
+                          <p className='font-bold'>{Math.round((Number.parseFloat(collectionFloor) + Number.EPSILON)*1000)/1000}</p>
                         </div>
-                        <div className='flex p-2'>
-                          <p className='font-bold'>Volume:</p>
-                          <EthIcon />
-                          <p className='font-medium'>{Math.round(Number.parseFloat(collectionVolume))}</p>
+                        <div className='flex p-2 bg-slate-900 rounded-lg'>
+                          <p className='font-medium uppercase text-sm text-gray-400 pt-1 pr-1'>Volume</p>
+                          <EthIcon width={25} height={20} />
+                          <p className='font-bold'>{Math.round(Number.parseFloat(collectionVolume))}</p>
                         </div>
                       </div>}
                     <div className='flex items-center truncate'>

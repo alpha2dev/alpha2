@@ -16,7 +16,6 @@ function FeaturedCallerItem({name, image, wallet, OnClick}: Props) {
   const handleClick = () => {
       router.push('/caller/' + wallet)
   }
-  console.log(image)
 
   return (
     <div className="overflow-hidden w-60 h-60 cursor-pointer rounded-lg relative group flex-none snap-always snap-center" onClick={handleClick}>
