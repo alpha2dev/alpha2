@@ -1,28 +1,23 @@
-import { doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { db } from '../firebase';
+import { User } from '../typings';
 
-type User = {
-  address: string,
-  name: string,
-  avatar: string,
-  isAdmin: boolean,
-  isCaller: boolean,
-}
-
-export const useAddressUser = (address: any) => {
+export const useAddressUser = async (address: any) => {
     const [user, setUser] = useState<User>()
-    useEffect(() => {
-        onSnapshot(doc(db, "users", address), (snapshot) => {
-            setUser({
-                address: snapshot.id,
-                name: snapshot.data()!.name,
-                avatar: snapshot.data()!.avatar,
-                isAdmin: snapshot.data()!.isAdmin,
-                isCaller: snapshot.data()!.isCaller
-            })
-        });
-    }, [user])
-    return user!
     
+
+    let dataPromise = new Promise<User>(async function(resolve, reject){
+        const userDoc = await getDoc(doc(db, "users", `${address}`));
+        let docData: User = {
+            address: userDoc.id,
+            name: userDoc.data()!.name,
+            avatar: userDoc.data()!.avatar,
+            isAdmin: userDoc.data()!.isAdmin, 
+            isCaller: userDoc.data()!.isCaller
+        }
+        resolve(docData)
+    })
+
+    return dataPromise
 }
