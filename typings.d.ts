@@ -5,3 +5,11 @@ export interface Caller {
         current?: string;
     }
 }
+
+export interface User {
+    address: string,
+    name: string,
+    avatar: string,
+    isAdmin?: boolean,
+    isCaller?: boolean,
+}

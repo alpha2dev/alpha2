@@ -15,13 +15,9 @@ import Login from '../../components/Login';
 import CallModal from '../../components/CallModal';
 import Head from 'next/head';
 import SubscribeModal from '../../components/SubscribeModal';
-import { useAddressUser } from '../../hooks/useAddressUser';
+import { useAddressUserStream } from '../../hooks/useAddressUserStream';
+import { User } from '../../typings';
 
-type User = {
-  address: string,
-  name: string,
-  avatar: string
-  }
 
 interface Props{
   caller: User,
@@ -33,7 +29,7 @@ function Caller({caller, loadedCalls}: Props) {
   const address = useAddress();
   const [calls, setCalls] = useState<any>(loadedCalls)
   
-  const user = useAddressUser(caller.address)
+  const user = useAddressUserStream(caller.address)
   useEffect(() => {
     onSnapshot(query(collection(db, "users", caller.address, "calls")), (snapshot) => {
       const docs: any[] = []

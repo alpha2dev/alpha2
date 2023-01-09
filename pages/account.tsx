@@ -8,7 +8,7 @@ import Head from 'next/head'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import EthIcon from '../components/EthIcon'
 import { db, storage } from '../firebase'
-import { useAddressUser } from '../hooks/useAddressUser'
+import { useAddressUserStream } from '../hooks/useAddressUserStream'
 
 interface Props{
   callers: any,
@@ -21,7 +21,7 @@ function account({callers, users}: Props) {
   const [name, setName] = useState()
   const nameRef = useRef<any>()
   const fileRef = useRef<any>()
-  const user = useAddressUser(address)
+  const user = useAddressUserStream(address)
   const storageRef = ref(storage, "/public/" + address + ".png")
 
   users.forEach((user: any) => {

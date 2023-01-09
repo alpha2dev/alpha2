@@ -9,13 +9,14 @@ import CallerItem from '../components/CallerItem'
 import FeaturedCallerItem from '../components/FeaturedCallerItem'
 import { db } from '../firebase'
 import {query, collection, getDocs, onSnapshot, addDoc, doc, getDoc, Timestamp, setDoc} from 'firebase/firestore'
-import { Caller } from '../typings'
+import { Caller, User } from '../typings'
 import { cloneElement, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import CallerCard from '../components/CallerCard'
 
 interface Props{
   callers: any,
-  users: any
+  users: User[]
 }
 
 function Home({callers, users}: Props){
@@ -30,17 +31,15 @@ function Home({callers, users}: Props){
   const router = useRouter()
   const address = useAddress();
 
-
+  //TODO: do this somewhere else
   let userJoined = false;
   if(address){
      users.forEach((user: any) => {
-    if(user.id == address){
+    if(user.address == address){
       userJoined = true;
     }
   });
   }
- 
-
   const data = {
     name: "New User",
     avatar: "/images/sponge.png",
@@ -53,6 +52,7 @@ function Home({callers, users}: Props){
   if(!userJoined && address){
     setDoc(doc(db, "users", `${address}`), data)
   }
+  //
 
   return (
     <div className="flex flex-col py-2 bg-main text-white space-y-10 bg">
@@ -61,10 +61,14 @@ function Home({callers, users}: Props){
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className=''>
-        <section className='flex flex-nowrap overflow-x-auto snap-x snap-mandatory space-x-5 px-5 justify-center mt-4 no-scrollbar'>
-          {users.map((user:any) =>(
-            <FeaturedCallerItem key={user.id} image={user.avatar} name={user.name} wallet={user.id} />
+        <section className='flex flex-nowrap overflow-x-auto snap-x snap-mandatory space-x-8 px-5 justify-center mt-4 no-scrollbar'>
+          {/*users.map((user:User) =>(
+            <FeaturedCallerItem key={user.address} image={user.avatar} name={user.name} wallet={user.address} />
+          ))*/}
+          {users.map((user:User) =>(
+            <CallerCard user={user}/>
           ))}
+          
         </section>
         <div className="space-y-5 md:space-y-0 m-5 md:flex md:flex-row items-start justify-center md:space-x-5">
           <div className='panel flex-col space-y-4 md:w-[600px] overflow-auto'>
@@ -110,11 +114,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
   })
 
-  let users: { id: string }[] = []
+  let users: User[] = []
 
   colUsers.forEach((doc) =>{
     users.push({
-      ...doc.data(), id:doc.id
+      address: doc.id,
+      name: doc.data()!.name,
+      avatar: doc.data()!.avatar
     })
   })
 
